@@ -1,0 +1,72 @@
+/* From Juejin */
+html {
+  font-size: 12px;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial;
+  word-break: break-word;
+  text-rendering: optimizeLegibility;
+  color: #333;
+  background-color: #f4f5f5;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+@media (max-width: 1050px) {
+  .main-header {
+    .list-left__item {
+      display: none;
+
+      &:first-of-type {
+        display: block;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .main-header {
+    .list-right .button {
+      &__add {
+        display: none;
+      }
+
+      &__login {
+        color: #fff;
+        background-color: #1d7dfa;
+      }
+    }
+
+    .logo {
+      display: none;
+      &-mobile { display: block; }
+    }
+  }
+}
+
+@media (max-width: 448px) {
+  .main-header {
+    .search {
+      display: none;
+    }
+  }
+}
