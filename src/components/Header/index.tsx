@@ -8,7 +8,7 @@ const Header: FC = () => (
     <div>
       <a href="/">
         <img src={logo} alt="" className="logo" />
-        <img src={logoMobile} className="logo-mobile" />
+        <img src={logoMobile} alt="" className="logo-mobile" />
       </a>
     </div>
     <div className="nav-list">
