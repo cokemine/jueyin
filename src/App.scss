@@ -58,7 +58,10 @@ input {
 
     .logo {
       display: none;
-      &-mobile { display: block; }
+
+      &-mobile {
+        display: block;
+      }
     }
   }
 }
