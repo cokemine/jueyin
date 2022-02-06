@@ -24,6 +24,7 @@ const Menu: FC<Props> = ({ categories }) => {
                 <Link
                   className={className}
                   href={`/category/${category.category_id}`}
+                  key={category.category_id}
                 >
                   {category.category_name}
                 </Link>
