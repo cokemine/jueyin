@@ -1,0 +1,27 @@
+.sub-header {
+  border-bottom: 1px solid #e5e5e5;
+  background-color: #fff;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    width: 960px;
+    height: 45px;
+  }
+
+  &__item {
+    padding: 0 1rem;
+    font-size: 1.16rem;
+    color: #71777c;
+
+    &:hover {
+      color: #007fff;
+    }
+
+    &__active {
+      color: #007fff;
+    }
+  }
+}

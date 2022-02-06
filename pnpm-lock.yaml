@@ -6,6 +6,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.10.0
   '@typescript-eslint/parser': ^5.10.0
   '@vitejs/plugin-react': ^1.0.7
+  classnames: ^2.3.1
   eslint: ^8.7.0
   eslint-config-airbnb: ^19.0.4
   eslint-config-airbnb-typescript: ^16.1.0
@@ -21,6 +22,7 @@ specifiers:
   stylelint-config-standard-scss: ^3.0.0
   stylelint-order: ^5.0.0
   stylelint-scss: ^4.1.0
+  swr: ^1.2.1
   typescript: ^4.4.4
   vite: ^2.7.2
   wouter: ^2.8.0-alpha.2
@@ -28,6 +30,7 @@ specifiers:
 dependencies:
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
+  swr: 1.2.1_react@17.0.2
   wouter: 2.8.0-alpha.2_react@17.0.2
 
 devDependencies:
@@ -36,6 +39,7 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': 5.10.0_3b6b276e93ead7cf6063f183a5e18d1f
   '@typescript-eslint/parser': 5.10.0_eslint@8.7.0+typescript@4.5.4
   '@vitejs/plugin-react': 1.1.4
+  classnames: 2.3.1
   eslint: 8.7.0
   eslint-config-airbnb: 19.0.4_7055e97b1b253ff782e895ac63b60be4
   eslint-config-airbnb-typescript: 16.1.0_497d193b4c613caf581bb77110fe8030
@@ -802,6 +806,10 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
+
+  /classnames/2.3.1:
+    resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
     dev: true
 
   /clone-regexp/2.2.0:
@@ -2834,6 +2842,14 @@ packages:
   /svg-tags/1.0.0:
     resolution: {integrity: sha1-WPcc7jvVGbWdSyqEO2x95krAR2Q=}
     dev: true
+
+  /swr/1.2.1_react@17.0.2:
+    resolution: {integrity: sha512-1cuWXqJqXcFwbgONGCY4PHZ8v05009JdHsC3CIC6u7d00kgbMswNr1sHnnhseOBxtzVqcCNpOHEgVDciRer45w==}
+    peerDependencies:
+      react: ^16.11.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 17.0.2
+    dev: false
 
   /table/6.8.0:
     resolution: {integrity: sha512-s/fitrbVeEyHKFa7mFdkuQMWlH1Wgw/yEXMt5xACT4ZpzWFluehAxRtUUQKPuWhaLAWhFcVx6w3oC8VKaUfPGA==}
