@@ -1,14 +1,20 @@
 import React, { FC } from 'react';
+import { Link } from 'wouter';
 import { AiOutlineEye, AiOutlineLike } from 'react-icons/ai';
 import { FaRegComment } from 'react-icons/fa';
 import './style.scss';
+
+type CategoryItem = {
+  id: number;
+  name: string;
+};
 
 type Props = {
   author: string;
   title: string;
   content: string;
   time: string;
-  category: string;
+  category: [CategoryItem, CategoryItem];
   action: {
     views: number;
     likes: number;
@@ -21,7 +27,15 @@ const Article: FC<Props> = props => (
     <div className="list-article__meta">
       <span className="meta-author nav-item">{props.author}</span>
       <span className="meta-time nav-item">{props.time}</span>
-      <span className="meta-category nav-item">{props.category}</span>
+      <span className="meta-category nav-item">
+        <Link className="category-item" href={`/category/${props.category[0].id}`}>
+          {props.category[0].name}
+        </Link>
+        <span className="category-dot">·</span>
+        <Link className="category-item" href={`/category/${props.category[0].id}/${props.category[1].id}`}>
+          {props.category[1].name}
+        </Link>
+      </span>
     </div>
     <div className="list-article__main">
       <h1 className="article-title">

@@ -23,14 +23,21 @@
     .meta-category {
       border-right: 0 !important;
 
-      &:hover {
-        color: #007fff;
+      .category-dot {
+        padding: 0 .5rem;
+        color: #1d2129;
+      }
+
+      .category-item {
+        &:hover {
+          color: #007fff;
+        }
       }
     }
 
     .nav-item {
       border-right: 1px solid hsla(0deg, 0%, 59.2%, 20%);
-      padding: 0 1.2rem;
+      padding: 0 .8rem;
       font-size: 13px;
       transition: all .2s ease;
     }

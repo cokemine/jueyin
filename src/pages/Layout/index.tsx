@@ -2,12 +2,17 @@ import React, { FC } from 'react';
 import useSWR from 'swr';
 import { RouteComponentProps, Link } from 'wouter';
 import Menu from '../../components/Menu';
-import { ICategories } from '../../types';
+import { ICategories, IArticles } from '../../types';
 import SubMenu from '../../components/SubMenu';
 import Article from '../../components/Article';
 import './style.scss';
 
 type Props = RouteComponentProps<{ id: string, sub_id: string }>;
+
+const getDate = (timestamp: string) => {
+  const date = new Date(Number(timestamp) * 1000);
+  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+};
 
 const Layout: FC<Props> = ({ params }) => {
   const { data: categories } = useSWR<ICategories>('getCategories');
@@ -15,13 +20,16 @@ const Layout: FC<Props> = ({ params }) => {
   const currentCategory = Number(params.id) || 0;
   const subCategory = Number(params.sub_id);
   const subCategories = categoriesList?.[currentCategory]?.children;
-  console.log(categoriesList?.[currentCategory]?.children);
   const category = subCategory || currentCategory;
 
   const urlSearchParams = new URLSearchParams(window.location.search);
   const queryParams = Object.fromEntries(urlSearchParams.entries());
   const sort = queryParams.sort || 'recommend';
-  console.log(sort);
+
+  const { data: articles } = useSWR<IArticles>(['getArticles', category, sort]);
+  const articlesList = articles?.articles;
+
+  console.log(articlesList);
 
   return (
     <div>
@@ -34,7 +42,7 @@ const Layout: FC<Props> = ({ params }) => {
         <div className="timeline-list">
           <div className="timeline-list__header">
             {
-              [{ title: '推荐', sort: 'recommend' }, { title: '最新', sort: 'newest' }, { title: '热榜', sort: 'hottest' }].map(item => (
+              [{ title: '推荐', sort: 'recommend' }, { title: '最新', sort: 'new' }, { title: '热榜', sort: 'hot' }].map(item => (
                 <Link
                   key={item.sort}
                   href={`?sort=${item.sort}`}
@@ -45,21 +53,28 @@ const Layout: FC<Props> = ({ params }) => {
               ))
             }
           </div>
-          <Article
-            author="小黑说Java"
-            title="使用MyBatis拦截器后，摸鱼时间又长了。🐟"
-            category={category.toString()}
-            content="
-          在进行一些业务处理过程中，需要频繁地对创建人，创建时间，更新人，更新时间等审计字段进行处理，应该如何更优雅地处理呢？
-        "
-            time="2020-05-05"
-            action={{
-              views: 0,
-              likes: 0,
-              comments: 0
-            }}
-          />
-          <div>Hello World</div>
+          {
+            articlesList?.map(article => (
+              <Article
+                key={article.article_id}
+                author={article.author_user_info.user_name}
+                title={article.article_info.title}
+                category={
+                  [
+                    { id: article.category_info.first_category_id, name: article.category_info.first_category_name },
+                    { id: article.category_info.second_category_id, name: article.category_info.second_category_name }
+                  ]
+                }
+                content={article.article_info.brief_content}
+                time={getDate(article.article_info.mtime)}
+                action={{
+                  views: article.article_info.view_count,
+                  likes: article.article_info.digg_count,
+                  comments: article.article_info.comment_count
+                }}
+              />
+            ))
+          }
         </div>
         <div className="timeline-sidebar">
           <h1>
