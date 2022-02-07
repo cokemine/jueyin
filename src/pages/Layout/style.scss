@@ -1,0 +1,33 @@
+.timeline {
+  margin: 1rem auto 0;
+  width: 960px;
+
+  &-list {
+    display: inline-block;
+    margin-right: 20px;
+    width: 700px;
+    background-color: #fff;
+
+    &__header {
+      border-bottom: 1px solid hsla(0deg, 0%, 59.2%, 10%);
+      padding: 1.3rem 1rem;
+
+      .nav-item {
+        border-right: 1px solid hsla(0deg, 0%, 59.2%, 20%);
+        padding: 0 1.2rem;
+        font-size: 1.16rem;
+        color: #909090;
+
+        &--active {
+          color: #007fff;
+        }
+      }
+    }
+  }
+
+  &-sidebar {
+    display: inline-block;
+    width: 240px;
+    background-color: #fff;
+  }
+}
