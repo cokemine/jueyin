@@ -12,13 +12,13 @@ const Menu: FC<Props> = ({ categories }) => {
   const [match, params] = useRoute('/category/:id/:sub_id?');
 
   return (
-    <div className="sub-header">
-      <div className="sub-header__inner">
+    <div className="menu">
+      <div className="menu__inner">
         <div>
           {
             categories?.map(category => {
-              const className = classNames('sub-header__item', {
-                'sub-header__item__active': match && params?.id === category.category_id.toString()
+              const className = classNames('menu__item', {
+                'menu__item--active': match && params?.id === category.category_id.toString()
               });
               return (
                 <Link
@@ -33,7 +33,7 @@ const Menu: FC<Props> = ({ categories }) => {
           }
         </div>
         <div>
-          <a href="#" className="sub-header__item">标签管理</a>
+          <a href="#" className="menu__item">标签管理</a>
         </div>
       </div>
     </div>
