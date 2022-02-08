@@ -17,6 +17,11 @@
         padding: 0 1.2rem;
         font-size: 1.16rem;
         color: #909090;
+        transition: all .3s ease;
+
+        &:hover {
+          color: #007fff;
+        }
 
         &--active {
           color: #007fff;
