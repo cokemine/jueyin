@@ -1,10 +1,11 @@
 .timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: self-start;
   margin: 1rem auto 0;
   width: 960px;
 
   &-list {
-    display: inline-block;
-    margin-right: 20px;
     width: 700px;
     background-color: #fff;
 
@@ -31,8 +32,12 @@
   }
 
   &-sidebar {
-    display: inline-block;
     width: 240px;
-    background-color: #fff;
+
+    &-box {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background-color: #fff;
+    }
   }
 }

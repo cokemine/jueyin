@@ -5,6 +5,7 @@ import Menu from '../../components/Menu';
 import { ICategories, IArticles } from '../../types';
 import SubMenu from '../../components/SubMenu';
 import Article from '../../components/Article';
+import webBanner from '../../assets/webbanner.webp';
 import './style.scss';
 
 type Props = RouteComponentProps<{ id: string, sub_id: string }>;
@@ -81,10 +82,10 @@ const Layout: FC<Props> = ({ params }) => {
           }
         </div>
         <div className="timeline-sidebar">
-          <h1>
-            Hello Layout,
-            {category}
+          <h1 className="timeline-sidebar-box">
+            I am sidebar
           </h1>
+          <img src={webBanner} alt="" width={240} />
         </div>
       </div>
     </div>
