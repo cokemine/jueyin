@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEventHandler } from 'react';
 import './style.scss';
 import { Link, useRoute } from 'wouter';
 import classNames from 'classnames';
@@ -6,13 +6,15 @@ import { ICategory } from '../../types';
 
 type Props = {
   categories?: ICategory[];
+  className?: string;
+  onLinkClick: MouseEventHandler<HTMLAnchorElement>;
 };
 
-const Menu: FC<Props> = ({ categories }) => {
+const Menu: FC<Props> = ({ categories, className, onLinkClick }) => {
   const [match, params] = useRoute('/category/:id/:sub_id?');
 
   return (
-    <div className="menu">
+    <div className={`menu ${className}`}>
       <div className="menu__inner">
         <div>
           {
@@ -25,6 +27,7 @@ const Menu: FC<Props> = ({ categories }) => {
                   className={className}
                   href={`/category/${category.category_id}`}
                   key={category.category_id}
+                  onClick={onLinkClick}
                 >
                   {category.category_name}
                 </Link>
@@ -41,7 +44,8 @@ const Menu: FC<Props> = ({ categories }) => {
 };
 
 Menu.defaultProps = {
-  categories: []
+  categories: [],
+  className: ''
 };
 
 export default Menu;

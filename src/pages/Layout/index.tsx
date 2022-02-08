@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { RouteComponentProps, Link } from 'wouter';
 import Menu from '../../components/Menu';
@@ -33,9 +33,33 @@ const Layout: FC<Props> = ({ params }) => {
 
   console.log(articlesList);
 
+  const [scrollTop, setScrollTop] = useState(0);
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      setScrollTop(document.documentElement.scrollTop);
+    });
+  }, []);
+
+  let timer: number;
+
   return (
     <div>
-      <Menu categories={categoriesList} />
+      <Menu
+        categories={categoriesList}
+        className={`${scrollTop > 65 ? 'fixed-top' : ''}`}
+        onLinkClick={() => {
+          timer && cancelAnimationFrame(timer);
+          timer = requestAnimationFrame(function fn() {
+            const top = document.documentElement.scrollTop;
+            if (top > 0) {
+              document.documentElement.scrollTop = top - 60;
+              timer = requestAnimationFrame(fn);
+            } else {
+              cancelAnimationFrame(timer);
+            }
+          });
+        }}
+      />
       {
         subCategories
         && <SubMenu categories={subCategories} id={currentCategory} />
@@ -44,7 +68,14 @@ const Layout: FC<Props> = ({ params }) => {
         <div className="timeline-list">
           <div className="timeline-list__header">
             {
-              [{ title: '热门', sort: 'hot' }, { title: '最新', sort: 'new' }, {
+              [{
+                title: '热门',
+                sort: 'hot'
+              },
+              {
+                title: '最新',
+                sort: 'new'
+              }, {
                 title: '历史',
                 sort: 'history'
               }].map(item => (

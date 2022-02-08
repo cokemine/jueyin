@@ -31,6 +31,14 @@ input {
   outline: none;
 }
 
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 9999;
+}
+
 @media (max-width: 1050px) {
   .main-header {
     .list-left__item {
