@@ -15,6 +15,7 @@ type Props = {
   content: string;
   time: string;
   category: [CategoryItem, CategoryItem];
+  image?: string,
   action: {
     views: number;
     likes: number;
@@ -38,10 +39,15 @@ const Article: FC<Props> = props => (
       </span>
     </div>
     <div className="list-article__main">
-      <h1 className="article-title">
-        {props.title}
-      </h1>
-      <div className="article-content">{props.content}</div>
+      <div>
+        <h1 className="article-title">
+          {props.title}
+        </h1>
+        <div className="article-content">{props.content}</div>
+      </div>
+      {
+        props.image && <img src={props.image} alt="" className="article-cover" />
+      }
     </div>
     <div className="list-article__action">
       <span className="action-views nav-item">

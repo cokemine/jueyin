@@ -72,6 +72,7 @@ const Layout: FC<Props> = ({ params }) => {
                 }
                 content={article.article_info.brief_content}
                 time={getDate(article.article_info.mtime)}
+                image={article.article_info.cover_image}
                 action={{
                   views: article.article_info.view_count,
                   likes: article.article_info.digg_count,
