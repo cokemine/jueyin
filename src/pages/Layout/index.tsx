@@ -87,6 +87,7 @@ const Layout: FC<Props> = ({ params }) => {
             I am sidebar
           </h1>
           <img src={webBanner} alt="" width={240} />
+          <p className="footer">©2022 稠土掘银</p>
         </div>
       </div>
     </div>
