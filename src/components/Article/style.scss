@@ -1,3 +1,4 @@
+/* stylelint-disable value-no-vendor-prefix */
 .list-article {
   display: flex;
   justify-content: space-evenly;
@@ -49,15 +50,19 @@
     align-items: center;
 
     .article-title {
+      display: -webkit-box;
+      overflow: hidden;
       margin: 0 0 5px;
       font-size: 16px;
       font-weight: 700;
       color: #1d2129;
       line-height: 24px;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
     }
 
     .article-content {
-      display: -webkit-box; /* stylelint-disable-line value-no-vendor-prefix */
+      display: -webkit-box;
       overflow: hidden;
       font-size: 13px;
       text-overflow: ellipsis;
