@@ -27,6 +27,7 @@ const Layout: FC<Props> = ({ params }) => {
   const sort = queryParams.sort || 'hot';
 
   const { data: articles } = useSWR<IArticles>(['getArticles', category, sort]);
+  /* WIP */
   const articlesList = sort === 'history' ? [] : articles?.articles;
 
   console.log(articlesList);
@@ -42,7 +43,10 @@ const Layout: FC<Props> = ({ params }) => {
         <div className="timeline-list">
           <div className="timeline-list__header">
             {
-              [{ title: '热门', sort: 'hot' }, { title: '最新', sort: 'new' }, { title: '历史', sort: 'history' }].map(item => (
+              [{ title: '热门', sort: 'hot' }, { title: '最新', sort: 'new' }, {
+                title: '历史',
+                sort: 'history'
+              }].map(item => (
                 <Link
                   key={item.sort}
                   href={`?sort=${item.sort}`}
