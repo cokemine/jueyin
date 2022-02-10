@@ -11,8 +11,16 @@ import './style.scss';
 type Props = RouteComponentProps<{ id: string, sub_id: string }>;
 
 const getDate = (timestamp: string) => {
-  const date = new Date(Number(timestamp) * 1000);
-  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+  // 本地获取时间不一定准确
+  let timeDiff = new Date().getTime() / 1000 - Number(timestamp);
+  const year = Math.floor(timeDiff / 86400 / 365);
+  if (year > 0) return `${year}年前`;
+  timeDiff %= (86400 * 365);
+  const month = Math.floor(timeDiff / 86400 / 30);
+  if (month > 0) return `${month}月前`;
+  const day = Math.floor(timeDiff / 86400);
+  if (day > 0) return `${day}天前`;
+  return '今日';
 };
 
 const Layout: FC<Props> = ({ params }) => {
