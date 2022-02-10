@@ -1,7 +1,11 @@
+/* stylelint-disable selector-class-pattern */
+
 /* From Juejin */
 html {
   font-size: 12px;
-  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial;
+  font-family:
+    -apple-system, system-ui, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif,
+    BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial;
   word-break: break-word;
   text-rendering: optimizeLegibility;
   color: #333;
@@ -31,7 +35,15 @@ input {
   outline: none;
 }
 
-@media (max-width: 1050px) {
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+@media (max-width: 1068px) {
   .main-header {
     .list-left__item {
       display: none;
@@ -40,6 +52,23 @@ input {
         display: block;
       }
     }
+  }
+
+  .menu__inner {
+    width: 100%;
+  }
+
+  .timeline-sidebar {
+    display: none;
+  }
+
+  .timeline {
+    margin: 0 10px;
+    width: auto;
+  }
+
+  .timeline-list {
+    width: 100%;
   }
 }
 

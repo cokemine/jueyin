@@ -5,13 +5,14 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern dist --fix",
+    "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern dist --ignore-pattern src/api --fix",
     "lint:style": "stylelint src/**/*.scss --fix",
     "lint": "npm run lint:js & npm run lint:style"
   },
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
     "swr": "^1.2.1",
     "wouter": "^2.8.0-alpha.2"
   },
