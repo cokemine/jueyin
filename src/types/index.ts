@@ -19,3 +19,5 @@ export interface ICategories {
 }
 
 export type IArticles = Article.RootObject;
+
+export type IArticle = { article:Article.Article };

@@ -1,0 +1,66 @@
+.article-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: self-start;
+  margin: 1.767rem auto 0;
+  width: 1140px;
+
+  .article-main {
+    padding: 2.7rem;
+    width: 820px;
+    background-color: #fff;
+  }
+
+  .article-sidebar {
+    width: 300px;
+    background-color: #fff;
+  }
+
+  .article-title {
+    margin: 0 0 1.667rem;
+    font-size: 2.667rem;
+    font-weight: 600;
+    line-height: 1.31;
+    color: #252933;
+  }
+
+  .article-author {
+    display: flex;
+    align-items: center;
+
+    .author-avatar {
+      margin-right: 1rem;
+      border-radius: 50%;
+      width: 3.333rem;
+      height: 3.333rem;
+    }
+
+    .author-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.667rem;
+      height: 3.333rem;
+      flex-direction: column;
+
+      .author-name {
+        font-size: 1.333rem;
+        font-weight: 500;
+        color: #515767;
+        line-height: 2rem;
+      }
+
+      .article-meta {
+        margin-top: 2px;
+        font-size: 1.167rem;
+        color: #8a919f;
+        line-height: 22px;
+      }
+    }
+  }
+
+  .article-cover {
+    width: 100%;
+    object-fit: cover;
+  }
+}

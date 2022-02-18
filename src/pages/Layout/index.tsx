@@ -117,6 +117,7 @@ const Layout: FC<Props> = ({ params }) => {
                   likes: article.article_info.digg_count,
                   comments: article.article_info.comment_count
                 }}
+                id={article.article_id}
               />
             ))
           }
