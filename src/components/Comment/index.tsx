@@ -10,6 +10,7 @@ type Props = {
   content: string;
   commentReply: any;
   createAt: number;
+  likeCount: number;
 };
 
 // WIP: move to utils
@@ -42,7 +43,7 @@ const Comment: FC<Props> = props => (
       <div className="comment-item__action">
         <div className="action-item">
           <AiOutlineLike className="action-icon" />
-          点赞
+          {`${props.likeCount || '点赞'}`}
         </div>
         <div className="action-item">
           <AiOutlineComment className="action-icon" />
