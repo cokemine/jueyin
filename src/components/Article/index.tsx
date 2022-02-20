@@ -3,6 +3,8 @@ import { Link, useLocation } from 'wouter';
 import { AiOutlineEye, AiOutlineLike } from 'react-icons/ai';
 import { FaRegComment } from 'react-icons/fa';
 import './style.scss';
+import Image from '../Image';
+import defaultCover from '../../assets/cover.jpg';
 
 type CategoryItem = {
   id: number;
@@ -49,7 +51,8 @@ const Article: FC<Props> = props => {
           <div className="article-content">{props.content}</div>
         </div>
         {
-          props.image && <img src={props.image} alt="" className="article-cover" />
+          props.image
+          && <Image src={props.image} alt={props.title} defaultSrc={defaultCover} className="article-cover" />
         }
       </div>
       <div className="list-article__action">

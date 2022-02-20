@@ -7,6 +7,7 @@ import { IArticle, IComments } from '../../types';
 import Comment from '../../components/Comment';
 import Image from '../../components/Image';
 import defaultAvatar from '../../assets/avatar.jpg';
+import defaultCover from '../../assets/cover.jpg';
 // WIP
 const getTime = (date: string | undefined) => {
   const d = new Date(Number(date) * 1000);
@@ -33,7 +34,12 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
         <div className="article-main">
           <h1 className="article-title">{article?.article_info.title}</h1>
           <div className="article-author">
-            <Image className="author-avatar" src={article?.author_user_info.avatar_large} defaultSrc={defaultAvatar} alt={authorInfo?.user_name} />
+            <Image
+              className="author-avatar"
+              src={article?.author_user_info.avatar_large}
+              defaultSrc={defaultAvatar}
+              alt={authorInfo?.user_name}
+            />
             <div className="author-info">
               <div className="author-name">{article?.author_user_info.user_name}</div>
               <div
@@ -44,7 +50,14 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
             </div>
           </div>
           {article?.article_info.cover_image
-            && <img className="article-cover" src={article?.article_info.cover_image} alt={article.article_info.title} />}
+            && (
+            <Image
+              className="article-cover"
+              src={article?.article_info.cover_image}
+              defaultSrc={defaultCover}
+              alt={article.article_info.title}
+            />
+            )}
           <div className="article-content" dangerouslySetInnerHTML={{ __html: article?.article_content! }} />
         </div>
         {/* Comments */}
@@ -70,7 +83,12 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
       <div className="article-sidebar">
         <div className="author-box">
           <div className="author-user">
-            <Image className="author-avatar" src={article?.author_user_info.avatar_large} defaultSrc={defaultAvatar} alt={authorInfo?.user_name} />
+            <Image
+              className="author-avatar"
+              src={article?.author_user_info.avatar_large}
+              defaultSrc={defaultAvatar}
+              alt={authorInfo?.user_name}
+            />
             <div className="author-info">
               <div className="author-name">{article?.author_user_info.user_name}</div>
               <div className="author-desc">{article?.author_user_info.job_title}</div>
