@@ -7,6 +7,7 @@
     height: 40px;
     border-radius: 50%;
     margin-right: 16px;
+    object-fit: cover;
   }
 
   .comment-item__main {
@@ -34,7 +35,6 @@
       font-size: 14px;
       line-height: 2rem;
       color: #515767;
-      margin-top: 8px;
       -webkit-line-clamp: 6;
       display: -webkit-box;
       overflow: hidden;
