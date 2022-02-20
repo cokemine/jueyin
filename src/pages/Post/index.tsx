@@ -69,7 +69,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
       <div className="article-sidebar">
         <div className="author-box">
           <div className="author-user">
-            <img className="author-avatar" src={article?.author_user_info.avatar_large} alt={authorInfo?.user_name} />
+            <Image className="author-avatar" src={article?.author_user_info.avatar_large} defaultSrc={defaultAvatar} alt={authorInfo?.user_name} />
             <div className="author-info">
               <div className="author-name">{article?.author_user_info.user_name}</div>
               <div className="author-desc">{article?.author_user_info.job_title}</div>

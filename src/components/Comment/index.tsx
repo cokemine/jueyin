@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import './style.scss';
 import { AiOutlineComment, AiOutlineLike } from 'react-icons/ai';
+import defaultAvatar from '../../assets/avatar.jpg';
+import Image from '../Image';
 
 type Props = {
   avatarUrl: string;
@@ -26,7 +28,7 @@ const getDate = (timestamp: number) => {
 
 const Comment: FC<Props> = props => (
   <div className="comment-item">
-    <img className="comment-item__avatar" src={props.avatarUrl} alt={props.name} />
+    <Image className="comment-item__avatar" defaultSrc={defaultAvatar} src={props.avatarUrl} alt={props.name} />
     <div className="comment-item__main">
       <div className="comment-item__top">
         <div className="comment-item__name">
