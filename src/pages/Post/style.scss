@@ -65,6 +65,28 @@
     object-fit: cover;
   }
 
+
+  .article-comments {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 2.7rem;
+    width: 820px;
+
+    .comments-title {
+      font-weight: 600;
+      font-size: 18px;
+      color: #252933;
+      display: flex;
+      align-items: center;
+      line-height: 30px;
+
+      .hot-icon {
+        color: #f53f3f;
+        margin-left: 10px;
+      }
+    }
+  }
+
   .article-sidebar {
     .author-box {
       padding: 1.667rem;

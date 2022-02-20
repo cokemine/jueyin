@@ -1,4 +1,5 @@
 import { Article } from './article';
+import { Comment } from './comment';
 
 export interface Response<T = any> {
   code: 0,
@@ -21,3 +22,5 @@ export interface ICategories {
 export type IArticles = Article.RootObject;
 
 export type IArticle = { article:Article.Article };
+
+export type IComments = Comment.RootObject;
