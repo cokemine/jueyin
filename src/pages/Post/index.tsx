@@ -73,6 +73,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
                 avatarUrl={comment.user_info.avatar_large}
                 content={comment.comment_info.comment_content}
                 commentReply={comment.comment_info.comment_replys}
+                replyInfo={comment.reply_infos}
                 createAt={comment.comment_info.ctime}
                 likeCount={comment.comment_info.digg_count}
               />

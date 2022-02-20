@@ -24,3 +24,8 @@ export type IArticles = Article.RootObject;
 export type IArticle = { article:Article.Article };
 
 export type IComments = Comment.RootObject;
+
+export type ICommentReply = Comment.CommentReply;
+export type IUserInfo = Comment.UserInfo2;
+
+export type IReply = Comment.ReplyInfo;

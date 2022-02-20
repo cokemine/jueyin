@@ -1,14 +1,19 @@
 import React, { FC } from 'react';
 import './style.scss';
 import { AiOutlineComment, AiOutlineLike } from 'react-icons/ai';
+import classNames from 'classnames';
 import defaultAvatar from '../../assets/avatar.jpg';
 import Image from '../Image';
+import { ICommentReply, IReply } from '../../types';
+import SubComment from './Sub';
 
 type Props = {
+  isSub?:boolean,
   avatarUrl: string;
   name: string;
   content: string;
-  commentReply: any;
+  commentReply?: ICommentReply[];
+  replyInfo?: IReply[];
   createAt: number;
   likeCount: number;
 };
@@ -27,32 +32,54 @@ const getDate = (timestamp: number) => {
   return '今日';
 };
 
-const Comment: FC<Props> = props => (
-  <div className="comment-item">
-    <Image className="comment-item__avatar" defaultSrc={defaultAvatar} src={props.avatarUrl} alt={props.name} />
-    <div className="comment-item__main">
-      <div className="comment-item__top">
-        <div className="comment-item__name">
-          {props.name}
+const Comment: FC<Props> = props => {
+  const wrapperClass = classNames('comment-item', {
+    'comment-item--sub': props.isSub
+  });
+  const avatarClass = classNames('comment-item__avatar', {
+    'comment-item__avatar--sub': props.isSub
+  });
+  return (
+    <div className={wrapperClass}>
+      <Image className={avatarClass} defaultSrc={defaultAvatar} src={props.avatarUrl} alt={props.name} />
+      <div className="comment-item__main">
+        <div className="comment-item__top">
+          <div className="comment-item__name">
+            {props.name}
+          </div>
+          <div className="comment-item__time">
+            {getDate(props.createAt)}
+          </div>
         </div>
-        <div className="comment-item__time">
-          {getDate(props.createAt)}
+        <div className="comment-item__content">{props.content}</div>
+        <div className="comment-item__action">
+          <div className="action-item">
+            <AiOutlineLike className="action-icon" />
+            {`${props.likeCount || '点赞'}`}
+          </div>
+          <div className="action-item">
+            <AiOutlineComment className="action-icon" />
+            回复
+          </div>
         </div>
+        {
+          Array.isArray(props.replyInfo) && props.replyInfo?.length !== 0 && (
+            props.replyInfo.map(comment => (
+              <Comment
+                key={comment.reply_id}
+                avatarUrl={comment.user_info.avatar_large}
+                name={comment.user_info.user_name}
+                content={comment.reply_info.reply_content}
+                createAt={comment.reply_info.ctime}
+                likeCount={comment.reply_info.digg_count}
+                isSub
+              />
+            ))
+          )
+        }
       </div>
-      <div className="comment-item__content">{props.content}</div>
-      <div className="comment-item__action">
-        <div className="action-item">
-          <AiOutlineLike className="action-icon" />
-          {`${props.likeCount || '点赞'}`}
-        </div>
-        <div className="action-item">
-          <AiOutlineComment className="action-icon" />
-          回复
-        </div>
-      </div>
-
     </div>
-  </div>
-);
+  );
+};
 
 export default Comment;
