@@ -5,7 +5,8 @@ import useSWR from 'swr';
 import { AiFillEye, AiFillLike, AiFillFire } from 'react-icons/ai';
 import { IArticle, IComments } from '../../types';
 import Comment from '../../components/Comment';
-
+import Image from '../../components/Image';
+import defaultAvatar from '../../assets/avatar.jpg';
 // WIP
 const getTime = (date: string | undefined) => {
   const d = new Date(Number(date) * 1000);
@@ -32,7 +33,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
         <div className="article-main">
           <h1 className="article-title">{article?.article_info.title}</h1>
           <div className="article-author">
-            <img className="author-avatar" src={article?.author_user_info.avatar_large} alt={authorInfo?.user_name} />
+            <Image className="author-avatar" src={article?.author_user_info.avatar_large} defaultSrc={defaultAvatar} alt={authorInfo?.user_name} />
             <div className="author-info">
               <div className="author-name">{article?.author_user_info.user_name}</div>
               <div

@@ -28,21 +28,21 @@
   .article-author {
     display: flex;
     align-items: center;
+    margin-bottom: 1.667rem;
 
     .author-avatar {
       margin-right: 1rem;
       border-radius: 50%;
       width: 3.333rem;
       height: 3.333rem;
+      object-fit: cover;
+      flex: 0 0 auto;
     }
 
     .author-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+      flex: 1;
       margin-bottom: 1.667rem;
       height: 3.333rem;
-      flex-direction: column;
 
       .author-name {
         font-size: 1.333rem;
