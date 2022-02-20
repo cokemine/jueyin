@@ -8,7 +8,12 @@ import { IArticle } from '../../types';
 // WIP
 const getTime = (date: string | undefined) => {
   const d = new Date(Number(date) * 1000);
-  return d.toString();
+  const y = d.getFullYear();
+  const m = d.getMonth() + 1;
+  const day = d.getDate();
+  const h = d.getHours();
+  const min = d.getMinutes();
+  return `${y}-${m}-${day} ${h}:${min}`;
 };
 
 const Post: FC<RouteComponentProps<{ id: string }>> = props => {
