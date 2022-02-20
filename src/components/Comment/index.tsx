@@ -26,7 +26,7 @@ const getDate = (timestamp: number) => {
 
 const Comment: FC<Props> = props => (
   <div className="comment-item">
-    <img className="comment-item__avatar" src={props.avatarUrl} alt="avatar" />
+    <img className="comment-item__avatar" src={props.avatarUrl} alt={props.name} />
     <div className="comment-item__main">
       <div className="comment-item__top">
         <div className="comment-item__name">
