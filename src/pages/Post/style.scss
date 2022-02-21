@@ -1,0 +1,151 @@
+.article-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: self-start;
+  margin: 1.767rem auto 0;
+  width: 1140px;
+
+  .article-main {
+    padding: 2.7rem;
+    width: 820px;
+    background-color: #fff;
+    margin-right: 20px;
+  }
+
+  .article-sidebar {
+    width: 300px;
+    background-color: #fff;
+  }
+
+  .article-title {
+    margin: 0 0 1.667rem;
+    font-size: 2.667rem;
+    font-weight: 600;
+    line-height: 1.31;
+    color: #252933;
+  }
+
+  .article-author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.667rem;
+
+    .author-avatar {
+      margin-right: 1rem;
+      border-radius: 50%;
+      width: 3.333rem;
+      height: 3.333rem;
+      object-fit: cover;
+      flex: 0 0 auto;
+    }
+
+    .author-info {
+      flex: 1;
+
+      .author-name {
+        font-size: 1.333rem;
+        font-weight: 500;
+        color: #515767;
+        line-height: 2rem;
+      }
+
+      .article-meta {
+        margin-top: 2px;
+        font-size: 1.167rem;
+        color: #8a919f;
+        line-height: 22px;
+      }
+    }
+  }
+
+  .article-cover {
+    width: 100%;
+    object-fit: cover;
+  }
+
+
+  .article-comments {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 2.7rem;
+    width: 820px;
+
+    .comments-title {
+      font-weight: 600;
+      font-size: 18px;
+      color: #252933;
+      display: flex;
+      align-items: center;
+      line-height: 30px;
+
+      .hot-icon {
+        color: #f53f3f;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .article-sidebar {
+    .author-box {
+      padding: 1.667rem;
+      display: flex;
+      flex-direction: column;
+
+      .author-user {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #e4e6eb;
+        border-bottom-color: rgb(228, 230, 235);
+        padding-bottom: 1.416rem;
+
+        .author-avatar {
+          border-radius: 50%;
+          object-fit: cover;
+          width: 4rem;
+          height: 4rem;
+          margin-right: 1.333rem;
+        }
+
+        .author-name {
+          font-size: 1.333rem;
+          font-weight: 500;
+          line-height: 2rem;
+          color: #252933;
+        }
+
+        .author-desc {
+          margin-top: 4px;
+          font-size: 1.167rem;
+          color: #515767;
+          font-weight: 400;
+          line-height: 22px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .author-stat {
+
+        .stat-item {
+          display: flex;
+          align-items: center;
+          font-size: 1.167rem;
+          color: #252933;
+          font-weight: 400;
+          margin-top: 0.667rem;
+        }
+
+        .icon {
+          color: #7bb9ff;
+          margin-right: 1rem;
+          width: 18px;
+          height: 18px;
+          padding: 4px;
+          background-color: #e1efff;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}
