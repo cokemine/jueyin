@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'wouter';
 import './style.scss';
 import useSWR from 'swr';
 import { AiFillEye, AiFillLike, AiFillFire } from 'react-icons/ai';
-import { IArticle, IComments } from '../../types';
+import { IArticle, IComments, Response } from '../../types';
 import Comment from '../../components/Comment';
 import Image from '../../components/Image';
 import defaultAvatar from '../../assets/avatar.jpg';
@@ -21,13 +21,14 @@ const getTime = (date: string | undefined) => {
 
 const Post: FC<RouteComponentProps<{ id: string }>> = props => {
   const { id } = props.params;
-  const { data } = useSWR<IArticle>(['getArticleById', id]);
-  const article = data?.article;
+  const { data } = useSWR<Response<IArticle>>(['getArticleById', id]);
+  const article = data?.data.article;
   const authorInfo = article?.author_user_info;
 
-  const { data: commentsData } = useSWR<IComments>(['getCommentsByArticleId', id]);
+  const { data: commentsData } = useSWR<Response<IComments>>(['getCommentsByArticleId', id]);
 
-  console.log(commentsData);
+  const comments = commentsData?.data.comments;
+
   return (
     <div className="article-container">
       <div className="article-wrapper">
@@ -51,12 +52,12 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
           </div>
           {article?.article_info.cover_image
             && (
-            <Image
-              className="article-cover"
-              src={article?.article_info.cover_image}
-              defaultSrc={defaultCover}
-              alt={article.article_info.title}
-            />
+              <Image
+                className="article-cover"
+                src={article?.article_info.cover_image}
+                defaultSrc={defaultCover}
+                alt={article.article_info.title}
+              />
             )}
           <div className="article-content" dangerouslySetInnerHTML={{ __html: article?.article_content! }} />
         </div>
@@ -67,7 +68,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
             <AiFillFire className="hot-icon" />
           </h1>
           {
-            commentsData?.comments?.map(comment => (
+            comments?.map(comment => (
               <Comment
                 name={comment.user_info.user_name}
                 avatarUrl={comment.user_info.avatar_large}

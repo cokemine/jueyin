@@ -4,6 +4,9 @@ import { Comment } from './comment';
 export interface Response<T = any> {
   code: 0,
   data: T,
+  total?: number,
+  has_more?: number
+  error_message?: string,
 }
 
 export interface CategoryItem {
@@ -21,11 +24,8 @@ export interface ICategories {
 
 export type IArticles = Article.RootObject;
 
-export type IArticle = { article:Article.Article };
+export type IArticle = { article: Article.Article };
 
 export type IComments = Comment.RootObject;
-
-export type ICommentReply = Comment.CommentReply;
-export type IUserInfo = Comment.UserInfo2;
 
 export type IReply = Comment.ReplyInfo;

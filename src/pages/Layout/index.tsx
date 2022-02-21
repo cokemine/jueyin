@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { RouteComponentProps, Link } from 'wouter';
 import Menu from '../../components/Menu';
-import { ICategories, IArticles } from '../../types';
+import { ICategories, IArticles, Response } from '../../types';
 import SubMenu from '../../components/SubMenu';
 import Article from '../../components/Article';
 import webBanner from '../../assets/webbanner.webp';
@@ -24,8 +24,8 @@ const getDate = (timestamp: string) => {
 };
 
 const Layout: FC<Props> = ({ params }) => {
-  const { data: categories } = useSWR<ICategories>('getCategories');
-  const categoriesList = categories?.categories;
+  const { data: categoriesData } = useSWR<Response<ICategories>>('getCategories');
+  const categoriesList = categoriesData?.data?.categories;
   const currentCategory = Number(params.id) || 0;
   const subCategory = Number(params.sub_id);
   const subCategories = categoriesList?.[currentCategory]?.children;
@@ -35,9 +35,9 @@ const Layout: FC<Props> = ({ params }) => {
   const queryParams = Object.fromEntries(urlSearchParams.entries());
   const sort = queryParams.sort || 'hot';
 
-  const { data: articles } = useSWR<IArticles>(['getArticles', category, sort]);
+  const { data: articlesData } = useSWR<Response<IArticles>>(['getArticles', category, sort]);
   /* WIP */
-  const articlesList = sort === 'history' ? [] : articles?.articles;
+  const articlesList = sort === 'history' ? [] : articlesData?.data?.articles;
 
   console.log(articlesList);
 

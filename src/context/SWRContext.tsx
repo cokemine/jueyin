@@ -4,8 +4,7 @@ import Api from '../api/wrapper';
 
 const fetcher = (hook: 'getCategories' | 'getArticles' | 'getArticleById' | 'getCommentsByArticleId', ...args: any[]) => {
   if (typeof Api[hook] === 'function') {
-    return Api[hook](...args)
-      .then((res: any) => res.data);
+    return Api[hook](...args);
   }
   return {
     code: 1,

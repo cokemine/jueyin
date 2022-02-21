@@ -1,5 +1,5 @@
 import {
-  ICategories, Response, IArticles, IArticle
+  ICategories, Response, IArticles, IArticle, IComments
 } from '../types';
 
 export declare function getCategories(): Promise<Response<ICategories>>;
@@ -10,4 +10,6 @@ export declare function getArticles(
 
 export declare function getArticleById(articleId: number): Promise<Response<IArticle>>;
 
-export declare function getCommentsByArticleId(articleId: number, offset: number, limit: number): Promise<Response>;
+export declare function getCommentsByArticleId(
+  articleId: number, offset: number, limit: number
+): Promise<Response<IComments>>;
