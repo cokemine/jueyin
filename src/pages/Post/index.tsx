@@ -71,8 +71,8 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
               <Comment
                 name={comment.user_info.user_name}
                 avatarUrl={comment.user_info.avatar_large}
+                authorDesc={comment.user_info.job_title}
                 content={comment.comment_info.comment_content}
-                commentReply={comment.comment_info.comment_replys}
                 replyInfo={comment.reply_infos}
                 createAt={comment.comment_info.ctime}
                 likeCount={comment.comment_info.digg_count}
