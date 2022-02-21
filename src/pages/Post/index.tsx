@@ -8,16 +8,7 @@ import Comment from '../../components/Comment';
 import Image from '../../components/Image';
 import defaultAvatar from '../../assets/avatar.jpg';
 import defaultCover from '../../assets/cover.jpg';
-// WIP
-const getTime = (date: string | undefined) => {
-  const d = new Date(Number(date) * 1000);
-  const y = d.getFullYear();
-  const m = d.getMonth() + 1;
-  const day = d.getDate();
-  const h = d.getHours();
-  const min = d.getMinutes();
-  return `${y}-${m}-${day} ${h}:${min}`;
-};
+import { formatDate } from '../../utils/formatDate';
 
 const Post: FC<RouteComponentProps<{ id: string }>> = props => {
   const { id } = props.params;
@@ -46,7 +37,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
               <div
                 className="article-meta"
               >
-                {`${getTime(article?.article_info.mtime)} · 阅读 ${article?.article_info.view_count}`}
+                {`${formatDate(article?.article_info.mtime!)} · 阅读 ${article?.article_info.view_count}`}
               </div>
             </div>
           </div>

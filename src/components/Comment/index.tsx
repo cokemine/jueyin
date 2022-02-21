@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import defaultAvatar from '../../assets/avatar.jpg';
 import Image from '../Image';
 import { IReply } from '../../types';
+import { getDiffDate } from '../../utils/formatDate';
 
 type Props = {
   isSub?: boolean,
@@ -17,20 +18,6 @@ type Props = {
   content: string;
   createAt: number;
   likeCount: number;
-};
-
-// WIP: move to utils
-const getDate = (timestamp: number) => {
-  // 本地获取时间不一定准确
-  let timeDiff = new Date().getTime() / 1000 - Number(timestamp);
-  const year = Math.floor(timeDiff / 86400 / 365);
-  if (year > 0) return `${year}年前`;
-  timeDiff %= (86400 * 365);
-  const month = Math.floor(timeDiff / 86400 / 30);
-  if (month > 0) return `${month}月前`;
-  const day = Math.floor(timeDiff / 86400);
-  if (day > 0) return `${day}天前`;
-  return '今日';
 };
 
 const Comment: FC<Props> = props => {
@@ -65,7 +52,7 @@ const Comment: FC<Props> = props => {
             )}
           </div>
           <div className="comment-item__time">
-            {getDate(props.createAt)}
+            {getDiffDate(props.createAt)}
           </div>
         </div>
         <div className="comment-item__content">
