@@ -8,6 +8,7 @@ import Article from '../../components/Article';
 import webBanner from '../../assets/webbanner.webp';
 import './style.scss';
 import { getDiffDate } from '../../utils/formatDate';
+import { moveScrollToTop } from '../../utils/dom';
 
 type Props = RouteComponentProps<{ id: string, sub_id: string }>;
 
@@ -43,18 +44,7 @@ const Layout: FC<Props> = ({ params }) => {
       <Menu
         categories={categoriesList}
         className={`${scrollTop > 65 ? 'fixed-top' : ''}`}
-        onLinkClick={() => {
-          timer && cancelAnimationFrame(timer);
-          timer = requestAnimationFrame(function fn() {
-            const top = document.documentElement.scrollTop;
-            if (top > 0) {
-              document.documentElement.scrollTop = top - 60;
-              timer = requestAnimationFrame(fn);
-            } else {
-              cancelAnimationFrame(timer);
-            }
-          });
-        }}
+        onLinkClick={() => timer = moveScrollToTop(timer)}
       />
       {
         subCategories

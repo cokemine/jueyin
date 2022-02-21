@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { RouteComponentProps } from 'wouter';
 import './style.scss';
 import useSWR from 'swr';
@@ -9,8 +9,13 @@ import Image from '../../components/Image';
 import defaultAvatar from '../../assets/avatar.jpg';
 import defaultCover from '../../assets/cover.jpg';
 import { formatDate } from '../../utils/formatDate';
+import { moveScrollToTop } from '../../utils/dom';
 
 const Post: FC<RouteComponentProps<{ id: string }>> = props => {
+  useEffect(() => {
+    moveScrollToTop();
+  }, []);
+
   const { id } = props.params;
   const { data } = useSWR<Response<IArticle>>(['getArticleById', id]);
   const article = data?.data.article;
