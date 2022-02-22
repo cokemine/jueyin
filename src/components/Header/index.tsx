@@ -16,7 +16,7 @@ const Header: FC = () => (
         {
           ['首页', '沸点', '课程', '资讯', '活动', '开放社区'].map(item => (
             <li className="list-left__item" key={item}>
-              <a href="#">{item}</a>
+              <a href={item === '首页' ? '/' : '#'}>{item}</a>
             </li>
           ))
         }

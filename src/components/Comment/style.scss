@@ -1,3 +1,10 @@
+@mixin OneLine {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
 .comment-item {
   padding: 16px 0;
   display: flex;
@@ -28,35 +35,29 @@
 
     .comment-item__top {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       margin-bottom: 8px;
     }
 
     .comment-item__author-desc {
-      margin-left: 13px;
-      max-width: 160px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      word-break: break-all;
+      @include OneLine;
+      margin-left: 10px;
       font-size: 14px;
       color: #8a919f;
-      line-height: 22px;
     }
 
     .comment-item__name {
+      @include OneLine;
       font-weight: 500;
       font-size: 15px;
       color: #252933;
-      line-height: 26px;
+      line-height: 22px;
+    }
 
-      .reply {
-        padding: 0 12px;
-        font-size: 14px;
-        line-height: 22px;
-        color: #8a919f;
-      }
+    .reply {
+      padding: 0 8px;
+      font-size: 14px;
+      color: #8a919f;
     }
 
     .comment-item__content {
@@ -107,6 +108,7 @@
       font-size: 14px;
       color: #8a919f;
       line-height: 22px;
+      margin-left: auto;
     }
   }
 }

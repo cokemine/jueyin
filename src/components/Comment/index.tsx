@@ -43,14 +43,14 @@ const Comment: FC<Props> = props => {
         <div className="comment-item__top">
           <div className="comment-item__name">
             {props.name}
-            {props.authorDesc && <span className="comment-item__author-desc">{props.authorDesc}</span>}
-            {props.replyToName && (
-              <>
-                <span className="reply">回复</span>
-                <span className="comment-item__name">{props.replyToName}</span>
-              </>
-            )}
           </div>
+          {props.authorDesc && <div className="comment-item__author-desc">{props.authorDesc}</div>}
+          {props.replyToName && (
+            <>
+              <span className="reply">回复</span>
+              <span className="comment-item__name">{props.replyToName}</span>
+            </>
+          )}
           <div className="comment-item__time">
             {getDiffDate(props.createAt)}
           </div>

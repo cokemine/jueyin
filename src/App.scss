@@ -3,9 +3,8 @@
 /* From Juejin */
 html {
   font-size: 12px;
-  font-family:
-    -apple-system, system-ui, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif,
-    BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif,
+  BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial;
   word-break: break-word;
   text-rendering: optimizeLegibility;
   color: #333;
@@ -43,6 +42,28 @@ input {
   z-index: 9999;
 }
 
+@media (max-width: 1300px) {
+  /* hidden article Sidebar */
+  .article-sidebar {
+    display: none;
+  }
+  /* make main article center */
+  .article-container {
+    justify-content: center;
+
+    .article-main {
+      margin: 0 10px;
+
+      .article-content {
+        max-width: calc(100vw - 5.4rem - 20px);
+      }
+    }
+  }
+  .article-comments {
+    margin: 20px 10px 0 10px;
+  }
+}
+
 @media (max-width: 1068px) {
   .main-header {
     .list-left__item {
@@ -64,11 +85,15 @@ input {
 
   .timeline {
     margin: 0 10px;
-    width: auto;
+    justify-content: center;
   }
 
-  .timeline-list {
-    width: 100%;
+  .comment-item__author-desc {
+    max-width: 90px;
+  }
+  
+  .comment-item__name {
+    max-width: 90px;
   }
 }
 
