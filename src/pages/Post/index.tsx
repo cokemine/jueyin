@@ -66,6 +66,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
           {
             comments?.map(comment => (
               <Comment
+                key={comment.comment_info.comment_id}
                 name={comment.user_info.user_name}
                 avatarUrl={comment.user_info.avatar_large}
                 authorDesc={comment.user_info.job_title}

@@ -5,7 +5,12 @@ module.exports = {
     es6: true,
     node: true
   },
-  extends: ['airbnb', 'airbnb/hooks', 'airbnb-typescript'],
+  extends: [
+    'airbnb-base',
+    'airbnb/rules/react',
+    'airbnb/hooks',
+    'airbnb-typescript'
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true
@@ -54,6 +59,7 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/function-component-definition': 'off',
+    'react/jsx-key': 2,
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-shadow': 'off',
     '@typescript-eslint/naming-convention': 'off',
@@ -62,8 +68,7 @@ module.exports = {
       allowTernary: true,
       allowTaggedTemplates: true
     }],
-    '@typescript-eslint/comma-dangle': [2, 'never'],
-    'jsx-a11y/anchor-is-valid': 'off'
+    '@typescript-eslint/comma-dangle': [2, 'never']
   },
   settings: {
     react: {
