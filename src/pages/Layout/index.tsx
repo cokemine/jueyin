@@ -30,20 +30,12 @@ const Layout: FC<Props> = ({ params }) => {
 
   console.log(articlesList);
 
-  const [scrollTop, setScrollTop] = useState(0);
-  useEffect(() => {
-    window.addEventListener('scroll', () => {
-      setScrollTop(document.documentElement.scrollTop);
-    });
-  }, []);
-
   let timer: number;
 
   return (
     <div>
       <Menu
         categories={categoriesList}
-        className={`${scrollTop > 65 ? 'fixed-top' : ''}`}
         onLinkClick={() => timer = moveScrollToTop(timer)}
       />
       {
