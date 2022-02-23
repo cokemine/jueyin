@@ -10,12 +10,12 @@ async function getArticlesWrapper(...args: any[]) {
   return {
     code: 0,
     data: {
-      articles: articles.articles.filter(article => {
+      articles: articles.articles.map(article => {
         if (patch.has(article.article_id)) {
-          return false;
+          article.article_id = Math.random().toString();
         }
         patch.add(article.article_id);
-        return true;
+        return article;
       })
     }
   };
