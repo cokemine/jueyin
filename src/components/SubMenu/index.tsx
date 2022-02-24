@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { CategoryItem } from '../../types';
+import { ICategoryChild } from '../../types';
 import SubMenuItem from './SubMenuItem';
 import './style.scss';
 
 type Props = {
-  categories: CategoryItem[];
+  categories: ICategoryChild[];
   id: number;
 };
 

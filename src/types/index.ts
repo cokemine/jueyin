@@ -1,5 +1,6 @@
 import { Article } from './article';
 import { Comment } from './comment';
+import { Category } from './category';
 
 export interface Response<T = any> {
   code: 0,
@@ -9,18 +10,13 @@ export interface Response<T = any> {
   error_message?: string,
 }
 
-export interface CategoryItem {
-  category_id: number,
-  category_name: string,
-}
+/* Generate with http://json2ts.com/ */
 
-export interface ICategory extends CategoryItem {
-  children?: CategoryItem[],
-}
+export type ICategoryChild = Category.Child;
 
-export interface ICategories {
-  categories: ICategory[]
-}
+export type ICategory = Category.Category;
+
+export type ICategories = Category.RootObject;
 
 export type IArticles = Article.RootObject;
 
