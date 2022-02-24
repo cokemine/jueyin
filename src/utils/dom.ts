@@ -11,3 +11,12 @@ export const moveScrollToTop = (_timer?: number): number => {
   });
   return timer;
 };
+
+export const getOffsetTop = (el: HTMLElement): number => {
+  let offsetTop = 0, _el: HTMLElement | null = el;
+  while (_el) {
+    offsetTop += el.offsetTop;
+    _el = el.offsetParent as HTMLElement;
+  }
+  return offsetTop;
+};

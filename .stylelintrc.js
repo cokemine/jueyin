@@ -6,8 +6,10 @@ module.exports = {
     'declaration-colon-newline-after': null,
     'number-leading-zero': 'never',
     'at-rule-no-unknown': null,
-    'at-rule-empty-line-before':'always',
+    'selector-class-pattern': null,
+    'at-rule-empty-line-before': 'always',
     'color-function-notation': 'legacy',
+    'value-no-vendor-prefix': [true, { ignoreValues: ['box'] }],
     'order/properties-order': [
       'position',
       'top',

@@ -6,14 +6,9 @@
   max-width: 1140px;
 
   .article-main {
+    margin-right: 20px;
     padding: 2.7rem;
     max-width: 820px;
-    background-color: #fff;
-    margin-right: 20px;
-  }
-
-  .article-sidebar {
-    max-width: 300px;
     background-color: #fff;
   }
 
@@ -63,32 +58,34 @@
     object-fit: cover;
   }
 
-
   .article-comments {
     margin-top: 20px;
-    background-color: #fff;
     padding: 2.7rem;
     max-width: 820px;
+    background-color: #fff;
 
     .comments-title {
-      font-weight: 600;
-      font-size: 18px;
-      color: #252933;
       display: flex;
       align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: #252933;
       line-height: 30px;
 
       .hot-icon {
-        color: #f53f3f;
         margin-left: 10px;
+        color: #f53f3f;
       }
     }
   }
 
   .article-sidebar {
+    max-width: 300px;
+    background-color: #fff;
+
     .author-box {
-      padding: 1.667rem;
       display: flex;
+      padding: 1.667rem;
       flex-direction: column;
 
       .author-user {
@@ -99,11 +96,11 @@
         padding-bottom: 1.416rem;
 
         .author-avatar {
+          margin-right: 1.333rem;
           border-radius: 50%;
-          object-fit: cover;
           width: 4rem;
           height: 4rem;
-          margin-right: 1.333rem;
+          object-fit: cover;
         }
 
         .author-name {
@@ -114,36 +111,35 @@
         }
 
         .author-desc {
+          overflow: hidden;
           margin-top: 4px;
           font-size: 1.167rem;
-          color: #515767;
           font-weight: 400;
-          line-height: 22px;
-          white-space: nowrap;
-          overflow: hidden;
           text-overflow: ellipsis;
+          white-space: nowrap;
+          color: #515767;
+          line-height: 22px;
         }
       }
 
       .author-stat {
-
         .stat-item {
           display: flex;
           align-items: center;
+          margin-top: .667rem;
           font-size: 1.167rem;
-          color: #252933;
           font-weight: 400;
-          margin-top: 0.667rem;
+          color: #252933;
         }
 
         .icon {
-          color: #7bb9ff;
           margin-right: 1rem;
+          border-radius: 50%;
+          padding: 4px;
           width: 18px;
           height: 18px;
-          padding: 4px;
+          color: #7bb9ff;
           background-color: #e1efff;
-          border-radius: 50%;
         }
       }
     }
