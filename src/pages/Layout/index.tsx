@@ -1,5 +1,5 @@
 import React, {
-  FC, useCallback, useEffect, useMemo, useState
+  FC, useCallback, useEffect, useRef, useState
 } from 'react';
 import useSWR from 'swr';
 import { RouteComponentProps, Link } from 'wouter';
@@ -25,28 +25,23 @@ const Layout: FC<Props> = ({ params }) => {
   const queryParams = Object.fromEntries(urlSearchParams.entries());
   const sort = queryParams.sort || 'hot';
 
-  const [offset, setOffset] = useState(20);
-
-  const articlesList = useMemo(() => [<ArticleRendered
-    category={category}
-    sort={sort}
-    offset={0}
-    limit={20}
-    key={`${category}-${sort}${offset}-20`}
-  />], [category, sort]);
-
   const itemHeight = 156, windowHeight = window.innerHeight;
   const visibleCount = Math.ceil(windowHeight / itemHeight);
+
+  const currentSize = useRef(0);
+
+  const [articleList, setArticleList] = useState<JSX.Element[]>([]);
 
   const scrollEvent = useCallback(() => {
     const { scrollTop } = document.documentElement;
     const start = Math.floor(scrollTop / itemHeight);
     const end = start + visibleCount;
-    const newOffset = (articlesList.length - 1) * 5 + 20;
+    const newOffset = currentSize.current;
     console.log(end, newOffset);
-    /* 每次增减 5 条数据 */
+    /* 每次增增加 5 条数据 */
     if (end >= newOffset) {
-      articlesList.push(
+      setArticleList(articleList => [
+        ...articleList,
         <ArticleRendered
           category={category}
           sort={sort}
@@ -54,15 +49,30 @@ const Layout: FC<Props> = ({ params }) => {
           limit={5}
           key={`${category}-${sort}-${newOffset}-5`}
         />
-      );
-      setOffset(offset => offset + 5);
+      ]);
+      currentSize.current += 5;
     }
   }, [category, sort, visibleCount]);
 
   useEffect(() => {
+    currentSize.current = 20;
+    setArticleList(
+      [
+        <ArticleRendered
+          category={category}
+          sort={sort}
+          offset={0}
+          limit={20}
+          key={`${category}-${sort}-0-20`}
+        />
+      ]
+    );
+  }, [category, sort]);
+
+  useEffect(() => {
     window.addEventListener('scroll', scrollEvent);
     return () => window.removeEventListener('scroll', scrollEvent);
-  }, []);
+  }, [scrollEvent]);
 
   let timer: number;
 
@@ -105,7 +115,7 @@ const Layout: FC<Props> = ({ params }) => {
             }
           </div>
           {
-            articlesList.map(item => item)
+            articleList
           }
         </div>
         <div className="timeline-sidebar">
