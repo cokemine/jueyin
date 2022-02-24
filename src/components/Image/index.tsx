@@ -1,4 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, {
+  FC,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback
+} from 'react';
 // https://unsplash.com/photos/gySMaocSdqs
 // https://unsplash.com/photos/aOC7TSLb1o8
 type Props = {
@@ -9,13 +15,21 @@ type Props = {
 };
 
 const _Image: FC<Props> = props => {
-  const img = new Image();
-  img.src = props.src!;
-  img.alt = props.alt!;
   const [source, setSource] = useState(props.defaultSrc);
-  img.addEventListener('load', () => {
-    setSource(props.src!);
-  });
+  const loadEvent = useCallback(() => setSource(props.src!), [props.src]);
+
+  useEffect(() => {
+    let img: HTMLImageElement | null = new Image();
+    img.src = props.src!;
+
+    img.addEventListener('load', loadEvent);
+
+    return () => {
+      img?.removeEventListener('load', loadEvent);
+      img = null;
+    };
+  }, [loadEvent, props.src]);
+
   return (
     <img src={source} alt={props.alt!} className={props.className} />
   );

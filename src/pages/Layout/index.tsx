@@ -74,13 +74,11 @@ const Layout: FC<Props> = ({ params }) => {
     return () => window.removeEventListener('scroll', scrollEvent);
   }, [scrollEvent]);
 
-  let timer: number;
-
   return (
     <>
       <Menu
         categories={categoriesList}
-        onLinkClick={() => timer = moveScrollToTop(timer)}
+        onLinkClick={() => window.scrollTo(0, 0)}
       />
       {
         subCategories
