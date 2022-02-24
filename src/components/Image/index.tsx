@@ -2,7 +2,6 @@ import React, {
   FC,
   useEffect,
   useState,
-  useMemo,
   useCallback
 } from 'react';
 // https://unsplash.com/photos/gySMaocSdqs
