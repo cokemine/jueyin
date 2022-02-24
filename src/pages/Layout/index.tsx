@@ -7,7 +7,7 @@ import Menu from '../../components/Menu';
 import { ICategories, Response } from '../../types';
 import SubMenu from '../../components/SubMenu';
 import webBanner from '../../assets/webbanner.webp';
-import { moveScrollToTop } from '../../utils/dom';
+import { getOffsetTop, moveScrollToTop } from '../../utils/dom';
 import ArticleRendered from '../../components/Article/ArticleRendered';
 import './style.scss';
 
@@ -28,16 +28,18 @@ const Layout: FC<Props> = ({ params }) => {
   const itemHeight = 156, windowHeight = window.innerHeight;
   const visibleCount = Math.ceil(windowHeight / itemHeight);
 
+  const listRef = useRef<HTMLDivElement>(null);
   const currentSize = useRef(0);
 
   const [articleList, setArticleList] = useState<JSX.Element[]>([]);
 
   const scrollEvent = useCallback(() => {
     const { scrollTop } = document.documentElement;
-    const start = Math.floor(scrollTop / itemHeight);
+    const offsetTop = listRef.current?.offsetTop || 0;
+    const start = Math.floor((scrollTop - offsetTop) / itemHeight);
     const end = start + visibleCount;
     const newOffset = currentSize.current;
-    console.log(end, newOffset);
+    console.log(start, end, newOffset);
     /* 每次增增加 5 条数据 */
     if (end >= newOffset) {
       setArticleList(articleList => [
@@ -112,9 +114,11 @@ const Layout: FC<Props> = ({ params }) => {
               ))
             }
           </div>
-          {
-            articleList
-          }
+          <div ref={listRef}>
+            {
+              articleList
+            }
+          </div>
         </div>
         <div className="timeline-sidebar">
           <h1 className="timeline-sidebar-box">
