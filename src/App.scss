@@ -52,7 +52,7 @@ input {
     justify-content: center;
 
     .article-main {
-      margin: 0 10px;
+      margin: 0 8px;
 
       .article-content {
         max-width: calc(100vw - 5.4rem - 20px);
@@ -60,7 +60,7 @@ input {
     }
   }
   .article-comments {
-    margin: 20px 10px 0 10px;
+    margin: 20px 8px 0 8px;
   }
 }
 
@@ -84,14 +84,14 @@ input {
   }
 
   .timeline {
-    margin: 0 10px;
+    margin: 0 5px;
     justify-content: center;
   }
 
   .comment-item__author-desc {
     max-width: 90px;
   }
-  
+
   .comment-item__name {
     max-width: 90px;
   }

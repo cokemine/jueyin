@@ -7,7 +7,6 @@ import Menu from '../../components/Menu';
 import { ICategories, Response } from '../../types';
 import SubMenu from '../../components/SubMenu';
 import webBanner from '../../assets/webbanner.webp';
-import { getOffsetTop, moveScrollToTop } from '../../utils/dom';
 import ArticleRendered from '../../components/Article/ArticleRendered';
 import './style.scss';
 
