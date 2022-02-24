@@ -1,9 +1,9 @@
 .menu {
+  position: sticky;
+  top: 0;
   margin-bottom: 1rem;
   border-bottom: 1px solid #e5e5e5;
   background-color: #fff;
-  position: sticky;
-  top: 0;
 
   &__inner {
     display: flex;

@@ -1,13 +1,13 @@
-@mixin OneLine {
-  white-space: nowrap;
+@mixin one-line {
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
   word-break: break-all;
 }
 
 .comment-item {
-  padding: 16px 0;
   display: flex;
+  padding: 16px 0;
 
   &--sub {
     padding: 16px;
@@ -15,10 +15,10 @@
   }
 
   .comment-item__avatar {
+    margin-right: 16px;
+    border-radius: 50%;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    margin-right: 16px;
     object-fit: cover;
 
     &--sub {
@@ -40,16 +40,20 @@
     }
 
     .comment-item__author-desc {
-      @include OneLine;
+
+      @include one-line;
+
       margin-left: 10px;
       font-size: 14px;
       color: #8a919f;
     }
 
     .comment-item__name {
-      @include OneLine;
-      font-weight: 500;
+
+      @include one-line;
+
       font-size: 15px;
+      font-weight: 500;
       color: #252933;
       line-height: 22px;
     }
@@ -61,27 +65,27 @@
     }
 
     .comment-item__content {
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 2rem;
-      color: #515767;
-      -webkit-line-clamp: 6;
       display: -webkit-box;
       overflow: hidden;
+      font-size: 14px;
+      font-weight: 400;
       text-overflow: ellipsis;
+      color: #515767;
+      line-height: 2rem;
+      -webkit-line-clamp: 6;
       -webkit-box-orient: vertical;
 
       &-reply {
-        background: #f2f3f5;
+        margin-top: 8px;
         border: 1px solid #e4e6eb;
-        box-sizing: border-box;
         border-radius: 4px;
         padding: 0 12px;
-        line-height: 36px;
         height: 36px;
         font-size: 14px;
         color: #8a919f;
-        margin-top: 8px;
+        background: #f2f3f5;
+        box-sizing: border-box;
+        line-height: 36px;
       }
     }
 
@@ -105,10 +109,10 @@
     }
 
     .comment-item__time {
+      margin-left: auto;
       font-size: 14px;
       color: #8a919f;
       line-height: 22px;
-      margin-left: auto;
     }
   }
 }

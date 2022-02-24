@@ -4,7 +4,7 @@
 html {
   font-size: 12px;
   font-family: -apple-system, system-ui, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif,
-  BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial;
+    BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial;
   word-break: break-word;
   text-rendering: optimizeLegibility;
   color: #333;
@@ -47,6 +47,7 @@ input {
   .article-sidebar {
     display: none;
   }
+
   /* make main article center */
   .article-container {
     justify-content: center;
@@ -59,8 +60,9 @@ input {
       }
     }
   }
+
   .article-comments {
-    margin: 20px 8px 0 8px;
+    margin: 20px 8px 0;
   }
 }
 
@@ -84,8 +86,8 @@ input {
   }
 
   .timeline {
-    margin: 0 5px;
     justify-content: center;
+    margin: 0 5px;
   }
 
   .comment-item__author-desc {
