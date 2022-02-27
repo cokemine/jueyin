@@ -12,7 +12,9 @@ type Props = {
   isSub?: boolean,
   /* sub comment info */
   replyInfo?: IReply[] | null;
+  /* father comment author name */
   replyToName?: string | null;
+  /* father comment content */
   replyToContent?: string | null;
   /* author info */
   avatarUrl: string;
