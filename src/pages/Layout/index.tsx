@@ -29,6 +29,7 @@ const Layout: FC<Props> = ({ params }) => {
 
   const listRef = useRef<HTMLDivElement>(null);
   const currentSize = useRef(0);
+  const hasMore = useRef(true);
 
   const [articleList, setArticleList] = useState<JSX.Element[]>([]);
 
@@ -40,7 +41,7 @@ const Layout: FC<Props> = ({ params }) => {
     const newOffset = currentSize.current;
     console.log(start, end, newOffset);
     /* 每次增增加 5 条数据 */
-    if (end >= newOffset) {
+    if (hasMore.current && end >= newOffset) {
       setArticleList(articleList => [
         ...articleList,
         <ArticleRendered
@@ -49,6 +50,7 @@ const Layout: FC<Props> = ({ params }) => {
           offset={newOffset}
           limit={5}
           key={`${category}-${sort}-${newOffset}-5`}
+          setHasMore={(result:boolean) => hasMore.current = result}
         />
       ]);
       currentSize.current += 5;
@@ -57,6 +59,7 @@ const Layout: FC<Props> = ({ params }) => {
 
   useEffect(() => {
     currentSize.current = 20;
+    hasMore.current = true;
     setArticleList(
       [
         <ArticleRendered
@@ -65,6 +68,7 @@ const Layout: FC<Props> = ({ params }) => {
           offset={0}
           limit={20}
           key={`${category}-${sort}-0-20`}
+          setHasMore={(result:boolean) => hasMore.current = result}
         />
       ]
     );

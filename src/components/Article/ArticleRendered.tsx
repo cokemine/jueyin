@@ -8,17 +8,19 @@ type Props = {
   category: number,
   sort: string,
   offset: number,
-  limit: number
+  limit: number,
+  setHasMore: (result: boolean) => void,
 };
 
 const ArticleRendered: FC<Props> = ({
   category,
   sort,
   offset,
-  limit
+  limit,
+  setHasMore
 }) => {
   const { data: articlesData } = useSWR<Response<IArticles>>(['getArticles', category, sort, offset, limit]);
-
+  setHasMore(articlesData?.has_more ?? true);
   /* WIP */
   const articlesList = sort === 'history' ? [] : articlesData?.data?.articles;
 
