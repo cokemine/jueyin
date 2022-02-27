@@ -21,7 +21,6 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
 
   /* article?.article_info.comment_count != totalComment */
   const [totalComment, setTotalComment] = useState<number>();
-  const currentComment = useRef(10);
   const commentHeight = useRef<Array<number>>([]);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -35,12 +34,15 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
   const scrollEvent = useCallback(() => {
     const { scrollTop } = document.documentElement;
     const offsetTop = listRef.current?.offsetTop || 0;
-    const itemHeight = commentHeight.current.reduce((a, b) => a + b, 0) / commentHeight.current.length;
-    const start = Math.floor((scrollTop - offsetTop) / itemHeight);
+    const offset = commentHeight.current.length;
+    const itemHeight = commentHeight.current.reduce((a, b) => a + b) / offset;
     const visibleCount = Math.ceil(windowHeight / itemHeight);
+
+    const start = Math.floor((scrollTop - offsetTop) / itemHeight);
     const end = start + visibleCount;
-    const offset = currentComment.current;
+
     const limit = Math.min(totalComment! - offset, 10);
+
     console.log(start, end);
     if (limit <= 0 || end < offset) return;
     setCommentList(commentList => [
@@ -53,7 +55,6 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
         setTotalComment={result => setTotalComment(result)}
         observeCallback={el => observer.current?.observe((el))}
       />]);
-    currentComment.current += limit;
   }, [id, windowHeight, totalComment]);
 
   useEffect(() => {

@@ -22,8 +22,9 @@ type Props = {
   content: string;
   createAt: number;
   likeCount: number;
-  'data-comment-index'?: number;
-  refCallback?: React.RefCallback<any>;
+  /* father comment index for observer used */
+  'data-comment-index'?: number | undefined;
+  refCallback?: React.RefCallback<any> | undefined;
 };
 
 const Comment: FC<Props> = props => {
@@ -106,7 +107,9 @@ Comment.defaultProps = {
   replyInfo: null,
   replyToName: null,
   replyToContent: null,
-  authorDesc: ''
+  authorDesc: '',
+  'data-comment-index': undefined,
+  refCallback: undefined
 };
 
 export default Comment;
