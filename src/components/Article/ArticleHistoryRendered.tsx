@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { IArticles, Response } from '../../types';
-import { renderArticle, RenderedProps } from './rendered';
+import { RenderArticle, RenderedProps } from './rendered';
 
 const ArticleHistoryRendered: FC<RenderedProps> = () => {
   const historyArticles = localStorage.getItem('historyArticles');
   const historyArticlesParsed: Response<IArticles> = JSON.parse(historyArticles!);
-  return renderArticle(historyArticlesParsed.data.articles);
+  return <RenderArticle articleList={historyArticlesParsed.data.articles} />;
 };
 
 export default ArticleHistoryRendered;

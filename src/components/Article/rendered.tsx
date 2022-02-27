@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { IArticle } from '../../types';
 import { getDiffDate } from '../../utils/formatDate';
 import Article from './index';
@@ -14,7 +14,7 @@ export interface RenderedProps {
   setNewOffset: (offset: number) => void,
 }
 
-export const renderArticle = (articleList?: IArticle['article'][]): JSX.Element => (
+export const RenderArticle: FC<{ articleList: IArticle['article'][] }> = ({ articleList }) => (
   // eslint-disable-next-line react/jsx-no-useless-fragment
   <>
     {

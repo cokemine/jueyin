@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import useSWR from 'swr';
 import { IArticles, Response } from '../../types';
-import { RenderedProps, renderArticle } from './rendered';
+import { RenderArticle, RenderedProps } from './rendered';
 
 const ArticleRendered: FC<RenderedProps> = ({
   category,
@@ -16,7 +16,7 @@ const ArticleRendered: FC<RenderedProps> = ({
   setNewOffset(offset + limit);
   const articleList = articlesData?.data?.articles;
 
-  return renderArticle(articleList);
+  return <RenderArticle articleList={articleList!} />;
 };
 
 export default ArticleRendered;
