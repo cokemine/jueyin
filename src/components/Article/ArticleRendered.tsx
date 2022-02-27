@@ -6,19 +6,26 @@ import Article from './index';
 
 type Props = {
   category: number,
+  /* 'hot' / 'new' */
   sort: string,
   offset: number,
-  limit: number
+  limit: number,
+  /* Set if there are more articles not show */
+  setHasMore: (result: boolean) => void,
+  setNewOffset: (offset: number) => void,
 };
 
 const ArticleRendered: FC<Props> = ({
   category,
   sort,
   offset,
-  limit
+  limit,
+  setNewOffset,
+  setHasMore
 }) => {
   const { data: articlesData } = useSWR<Response<IArticles>>(['getArticles', category, sort, offset, limit]);
-
+  setHasMore(articlesData?.has_more ?? true);
+  setNewOffset(offset + limit);
   /* WIP */
   const articlesList = sort === 'history' ? [] : articlesData?.data?.articles;
 

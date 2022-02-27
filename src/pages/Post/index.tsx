@@ -1,29 +1,90 @@
-import React, { FC, useEffect } from 'react';
+import React, {
+  FC, useState, useRef, useCallback, useEffect
+} from 'react';
 import { RouteComponentProps } from 'wouter';
 import './style.scss';
 import useSWR from 'swr';
 import { AiFillEye, AiFillLike, AiFillFire } from 'react-icons/ai';
-import { IArticle, IComments, Response } from '../../types';
-import Comment from '../../components/Comment';
+import { IArticle, Response } from '../../types';
 import Image from '../../components/Image';
+import CommentRendered from '../../components/Comment/CommentRendered';
 import defaultAvatar from '../../assets/avatar.jpg';
 import defaultCover from '../../assets/cover.jpg';
 import { formatDate } from '../../utils/formatDate';
 import { moveScrollToTop } from '../../utils/dom';
 
 const Post: FC<RouteComponentProps<{ id: string }>> = props => {
-  useEffect(() => {
-    moveScrollToTop();
-  }, []);
-
   const { id } = props.params;
   const { data } = useSWR<Response<IArticle>>(['getArticleById', id]);
   const article = data?.data.article;
   const authorInfo = article?.author_user_info;
 
-  const { data: commentsData } = useSWR<Response<IComments>>(['getCommentsByArticleId', id]);
+  /* article?.article_info.comment_count != totalComment */
+  const [totalComment, setTotalComment] = useState<number>();
+  const commentHeight = useRef<Array<number>>([]);
+  const listRef = useRef<HTMLDivElement>(null);
 
-  const comments = commentsData?.data.comments;
+  const observer = useRef<ResizeObserver>();
+
+  const [showShowMoreButton, setShowShowMoreButton] = useState(true);
+
+  const [commentList, setCommentList] = useState<JSX.Element[]>([]);
+  const windowHeight = window.innerHeight;
+
+  const scrollEvent = useCallback(() => {
+    const { scrollTop } = document.documentElement;
+    const offsetTop = listRef.current?.offsetTop || 0;
+    const offset = commentHeight.current.length;
+    const itemHeight = commentHeight.current.reduce((a, b) => a + b) / offset;
+    const visibleCount = Math.ceil(windowHeight / itemHeight);
+
+    const start = Math.floor((scrollTop - offsetTop) / itemHeight);
+    const end = start + visibleCount;
+
+    const limit = Math.min(totalComment! - offset, 10);
+
+    console.log(start, end);
+    if (limit <= 0 || end < offset) return;
+    setCommentList(commentList => [
+      ...commentList,
+      <CommentRendered
+        limit={limit}
+        offset={offset}
+        articleId={id}
+        key={`${id}-${offset}-${limit}`}
+        setTotalComment={result => setTotalComment(result)}
+        observeCallback={el => observer.current?.observe((el))}
+      />]);
+  }, [id, windowHeight, totalComment]);
+
+  useEffect(() => {
+    moveScrollToTop();
+
+    observer.current = new ResizeObserver(entries => {
+      entries.forEach(entry => {
+        const index = Number(entry.target.getAttribute('data-comment-index'));
+        commentHeight.current[index] = entry.contentRect.bottom + entry.contentRect.top;
+      });
+    });
+
+    setCommentList([
+      <CommentRendered
+        articleId={id}
+        key={`${id}-0-10`}
+        offset={0}
+        limit={10}
+        setTotalComment={result => setTotalComment(result)}
+        observeCallback={el => observer.current?.observe((el))}
+      />
+    ]);
+
+    return () => observer.current?.disconnect();
+  }, [id]);
+
+  useEffect(() => {
+    !showShowMoreButton && window.addEventListener('scroll', scrollEvent);
+    return () => window.removeEventListener('scroll', scrollEvent);
+  }, [scrollEvent, showShowMoreButton]);
 
   return (
     <div className="article-container">
@@ -60,23 +121,32 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
         {/* Comments */}
         <div className="article-comments">
           <h1 className="comments-title">
-            热门评论
+            全部评论
+            {' '}
+            {totalComment}
+            {' '}
             <AiFillFire className="hot-icon" />
           </h1>
-          {
-            comments?.map(comment => (
-              <Comment
-                key={comment.comment_info.comment_id}
-                name={comment.user_info.user_name}
-                avatarUrl={comment.user_info.avatar_large}
-                authorDesc={comment.user_info.job_title}
-                content={comment.comment_info.comment_content}
-                replyInfo={comment.reply_infos}
-                createAt={comment.comment_info.ctime}
-                likeCount={comment.comment_info.digg_count}
-              />
-            ))
-          }
+          <div ref={listRef}>
+            {
+              commentList
+            }
+          </div>
+          {showShowMoreButton && (
+            <div
+              className="show-more-comments"
+              onClick={() => {
+                setShowShowMoreButton(false);
+                scrollEvent();
+              }}
+            >
+              查看全部
+              {' '}
+              {totalComment}
+              {' '}
+              条回复
+            </div>
+          )}
         </div>
       </div>
       <div className="article-sidebar">

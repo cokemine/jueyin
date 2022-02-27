@@ -73,10 +73,23 @@
       line-height: 30px;
 
       .hot-icon {
-        margin-left: 10px;
         color: #f53f3f;
       }
     }
+  }
+
+  .show-more-comments {
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #252933;
+    font-size: 15px;
+    height: 52px;
+    cursor: pointer;
+    margin: 36px 0 0;
+    background-color: #f7f8fa;
+    font-weight: 500;
   }
 
   .article-sidebar {

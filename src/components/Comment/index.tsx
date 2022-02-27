@@ -8,16 +8,25 @@ import { IReply } from '../../types';
 import { getDiffDate } from '../../utils/formatDate';
 
 type Props = {
+  /* if is a sub comment */
   isSub?: boolean,
+  /* sub comment info */
   replyInfo?: IReply[] | null;
+  /* father comment author name */
   replyToName?: string | null;
+  /* father comment content */
   replyToContent?: string | null;
+  /* author info */
   avatarUrl: string;
   authorDesc?: string;
   name: string;
+  /* the content of the comment */
   content: string;
   createAt: number;
   likeCount: number;
+  /* father comment index for observer used */
+  'data-comment-index'?: number | undefined;
+  refCallback?: React.RefCallback<any> | undefined;
 };
 
 const Comment: FC<Props> = props => {
@@ -28,8 +37,9 @@ const Comment: FC<Props> = props => {
     'comment-item__avatar--sub': props.isSub
   });
 
+  /* hash table: id -> reply object */
   const replyMap = new Map<string, IReply>();
-  /* reply.reply_id <> reply.reply_info.reply_id */
+  /* reply.reply_id !== reply.reply_info.reply_id */
   if (Array.isArray(props.replyInfo)) {
     props.replyInfo.forEach(reply => {
       replyMap.set(reply.reply_info.reply_id, reply);
@@ -37,7 +47,7 @@ const Comment: FC<Props> = props => {
   }
 
   return (
-    <div className={wrapperClass}>
+    <div className={wrapperClass} data-comment-index={props['data-comment-index']} ref={props.refCallback}>
       <Image className={avatarClass} defaultSrc={defaultAvatar} src={props.avatarUrl} alt={props.name} />
       <div className="comment-item__main">
         <div className="comment-item__top">
@@ -99,7 +109,9 @@ Comment.defaultProps = {
   replyInfo: null,
   replyToName: null,
   replyToContent: null,
-  authorDesc: ''
+  authorDesc: '',
+  'data-comment-index': undefined,
+  refCallback: undefined
 };
 
 export default Comment;

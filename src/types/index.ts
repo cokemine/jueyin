@@ -6,7 +6,7 @@ export interface Response<T = any> {
   code: 0,
   data: T,
   total?: number,
-  has_more?: number
+  has_more?: boolean
   error_message?: string,
 }
 
