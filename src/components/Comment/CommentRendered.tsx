@@ -36,7 +36,7 @@ const CommentRendered: FC<Props> = ({
             createAt={comment.comment_info.ctime}
             likeCount={comment.comment_info.digg_count}
             data-comment-index={offset + index}
-            refCallback={observeCallback && (el => observeCallback(el))}
+            refCallback={observeCallback && (el => el && observeCallback(el))}
           />
         ))
       }
