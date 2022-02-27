@@ -28,7 +28,7 @@ const Layout: FC<Props> = ({ params }) => {
   const visibleCount = Math.ceil(windowHeight / itemHeight);
 
   const listRef = useRef<HTMLDivElement>(null);
-  const currentSize = useRef(0);
+  const offset = useRef(0);
   const hasMore = useRef(true);
 
   const [articleList, setArticleList] = useState<JSX.Element[]>([]);
@@ -38,28 +38,25 @@ const Layout: FC<Props> = ({ params }) => {
     const offsetTop = listRef.current?.offsetTop || 0;
     const start = Math.floor((scrollTop - offsetTop) / itemHeight);
     const end = start + visibleCount;
-    const newOffset = currentSize.current;
-    console.log(start, end, newOffset);
+    console.log(start, end, offset.current);
     /* 每次增增加 5 条数据 */
-    if (hasMore.current && end >= newOffset) {
+    if (hasMore.current && end >= offset.current) {
       setArticleList(articleList => [
         ...articleList,
         <ArticleRendered
           category={category}
           sort={sort}
-          offset={newOffset}
+          offset={offset.current}
           limit={5}
-          key={`${category}-${sort}-${newOffset}-5`}
-          setHasMore={(result:boolean) => hasMore.current = result}
+          key={`${category}-${sort}-${offset.current}-5`}
+          setHasMore={(result: boolean) => hasMore.current = result}
+          setNewOffset={(newOffset: number) => offset.current = newOffset}
         />
       ]);
-      currentSize.current += 5;
     }
   }, [category, sort, visibleCount]);
 
   useEffect(() => {
-    currentSize.current = 20;
-    hasMore.current = true;
     setArticleList(
       [
         <ArticleRendered
@@ -68,7 +65,8 @@ const Layout: FC<Props> = ({ params }) => {
           offset={0}
           limit={20}
           key={`${category}-${sort}-0-20`}
-          setHasMore={(result:boolean) => hasMore.current = result}
+          setHasMore={(result: boolean) => hasMore.current = result}
+          setNewOffset={(newOffset: number) => offset.current = newOffset}
         />
       ]
     );
