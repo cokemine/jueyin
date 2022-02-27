@@ -60,7 +60,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
         {/* Comments */}
         <div className="article-comments">
           <h1 className="comments-title">
-            热门评论
+            全部评论
             <AiFillFire className="hot-icon" />
           </h1>
           {
