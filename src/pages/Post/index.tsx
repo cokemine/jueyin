@@ -1,11 +1,13 @@
-import React, { FC, useEffect } from 'react';
+import React, {
+  FC, useState, useRef, useCallback, useEffect
+} from 'react';
 import { RouteComponentProps } from 'wouter';
 import './style.scss';
 import useSWR from 'swr';
 import { AiFillEye, AiFillLike, AiFillFire } from 'react-icons/ai';
-import { IArticle, IComments, Response } from '../../types';
-import Comment from '../../components/Comment';
+import { IArticle, Response } from '../../types';
 import Image from '../../components/Image';
+import CommentRendered from '../../components/Comment/CommentRendered';
 import defaultAvatar from '../../assets/avatar.jpg';
 import defaultCover from '../../assets/cover.jpg';
 import { formatDate } from '../../utils/formatDate';
@@ -21,9 +23,39 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
   const article = data?.data.article;
   const authorInfo = article?.author_user_info;
 
-  const { data: commentsData } = useSWR<Response<IComments>>(['getCommentsByArticleId', id]);
+  /* article?.article_info.comment_count != totalComment */
+  const totalComment = useRef(0);
+  const currentComment = useRef(10);
 
-  const comments = commentsData?.data.comments;
+  const [showShowMoreButton, setShowShowMoreButton] = useState(true);
+
+  const [commentList, setCommentList] = useState<JSX.Element[]>(
+    [
+      <CommentRendered
+        articleId={id}
+        key={0}
+        offset={0}
+        limit={10}
+        setTotalComment={result => totalComment.current = result}
+      />
+    ]
+  );
+
+  const fetchComments = useCallback(() => {
+    const offset = currentComment.current;
+    const limit = Math.min(totalComment.current - offset, 10);
+    if (limit <= 0) return setShowShowMoreButton(false);
+    setCommentList(commentList => [
+      ...commentList,
+      <CommentRendered
+        limit={limit}
+        offset={offset}
+        articleId={id}
+        key={`${id}-${offset}-${limit}`}
+        setTotalComment={result => totalComment.current = result}
+      />]);
+    currentComment.current += limit;
+  }, [id]);
 
   return (
     <div className="article-container">
@@ -61,22 +93,26 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
         <div className="article-comments">
           <h1 className="comments-title">
             全部评论
+            {' '}
+            {totalComment.current}
+            {' '}
             <AiFillFire className="hot-icon" />
           </h1>
           {
-            comments?.map(comment => (
-              <Comment
-                key={comment.comment_info.comment_id}
-                name={comment.user_info.user_name}
-                avatarUrl={comment.user_info.avatar_large}
-                authorDesc={comment.user_info.job_title}
-                content={comment.comment_info.comment_content}
-                replyInfo={comment.reply_infos}
-                createAt={comment.comment_info.ctime}
-                likeCount={comment.comment_info.digg_count}
-              />
-            ))
+            commentList
           }
+          {showShowMoreButton && (
+            <div
+              className="show-more-comments"
+              onClick={fetchComments}
+            >
+              查看全部
+              {' '}
+              {totalComment.current}
+              {' '}
+              条回复
+            </div>
+          )}
         </div>
       </div>
       <div className="article-sidebar">
