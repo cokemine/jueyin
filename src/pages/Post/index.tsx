@@ -20,11 +20,16 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
   const authorInfo = article?.author_user_info;
 
   /* Save Post to localStorage */
-  if (article) {
-    const articleList = JSON.parse(localStorage.getItem('historyArticles') || '[]') as IArticle['article'][];
-    articleList.push(article);
-    localStorage.setItem('historyArticles', JSON.stringify(articleList));
-  }
+  useEffect(() => {
+    if (article) {
+      const articleList = JSON.parse(localStorage.getItem('historyArticles') || '[]') as IArticle['article'][];
+      const hasArticle = articleList.some(item => item.article_id === article.article_id);
+      if (!hasArticle) {
+        articleList.push(article);
+        localStorage.setItem('historyArticles', JSON.stringify(articleList));
+      }
+    }
+  }, [article]);
 
   /* article?.article_info.comment_count != totalComment */
   const [totalComment, setTotalComment] = useState<number>();
@@ -37,6 +42,8 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
 
   const [commentList, setCommentList] = useState<JSX.Element[]>([]);
   const windowHeight = window.innerHeight;
+
+  console.log('rendered', totalComment, commentList, data);
 
   const scrollEvent = useCallback(() => {
     const { scrollTop } = document.documentElement;
