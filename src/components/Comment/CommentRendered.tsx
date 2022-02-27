@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import useSWR from 'swr';
 import { IComments, Response } from '../../types';
 import Comment from './index';
@@ -20,7 +20,7 @@ const CommentRendered: FC<Props> = ({
 }) => {
   const { data: commentsData } = useSWR<Response<IComments>>(['getCommentsByArticleId', articleId, offset, limit]);
   const comments = commentsData?.data.comments;
-  setTotalComment(Number(commentsData?.total));
+  useEffect(() => setTotalComment(Number(commentsData?.total)), [commentsData?.total, setTotalComment]);
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>

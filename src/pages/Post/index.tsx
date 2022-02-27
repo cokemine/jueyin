@@ -20,7 +20,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
   const authorInfo = article?.author_user_info;
 
   /* article?.article_info.comment_count != totalComment */
-  const totalComment = useRef();
+  const [totalComment, setTotalComment] = useState<number>();
   const currentComment = useRef(10);
   const commentHeight = useRef<Array<number>>([]);
   const listRef = useRef<HTMLDivElement>(null);
@@ -29,10 +29,9 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
 
   const [showShowMoreButton, setShowShowMoreButton] = useState(true);
 
-  const [commentList, setCommentList] = useState<JSX.Element[]>(
-    []
-  );
+  const [commentList, setCommentList] = useState<JSX.Element[]>([]);
   const windowHeight = window.innerHeight;
+
   const scrollEvent = useCallback(() => {
     const { scrollTop } = document.documentElement;
     const offsetTop = listRef.current?.offsetTop || 0;
@@ -41,7 +40,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
     const visibleCount = Math.ceil(windowHeight / itemHeight);
     const end = start + visibleCount;
     const offset = currentComment.current;
-    const limit = Math.min(totalComment.current - offset, 10);
+    const limit = Math.min(totalComment! - offset, 10);
     console.log(start, end);
     if (limit <= 0 || end < offset) return;
     setCommentList(commentList => [
@@ -51,11 +50,11 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
         offset={offset}
         articleId={id}
         key={`${id}-${offset}-${limit}`}
-        setTotalComment={result => totalComment.current = result}
+        setTotalComment={result => setTotalComment(result)}
         observeCallback={el => observer.current?.observe((el))}
       />]);
     currentComment.current += limit;
-  }, [id, windowHeight]);
+  }, [id, windowHeight, totalComment]);
 
   useEffect(() => {
     moveScrollToTop();
@@ -70,10 +69,10 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
     setCommentList([
       <CommentRendered
         articleId={id}
-        key={0}
+        key={`${id}-0-10`}
         offset={0}
         limit={10}
-        setTotalComment={result => totalComment.current = result}
+        setTotalComment={result => setTotalComment(result)}
         observeCallback={el => observer.current?.observe((el))}
       />
     ]);
@@ -123,7 +122,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
           <h1 className="comments-title">
             全部评论
             {' '}
-            {totalComment.current}
+            {totalComment}
             {' '}
             <AiFillFire className="hot-icon" />
           </h1>
@@ -135,11 +134,14 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
           {showShowMoreButton && (
             <div
               className="show-more-comments"
-              onClick={() => setShowShowMoreButton(false)}
+              onClick={() => {
+                setShowShowMoreButton(false);
+                scrollEvent();
+              }}
             >
               查看全部
               {' '}
-              {totalComment.current}
+              {totalComment}
               {' '}
               条回复
             </div>
