@@ -26,7 +26,7 @@ type Props = {
   likeCount: number;
   /* father comment index for observer used */
   'data-comment-index'?: number | undefined;
-  refCallback?: React.RefCallback<any> | undefined;
+  refCallback?: React.RefCallback<Element> | undefined;
 };
 
 const Comment: FC<Props> = props => {
