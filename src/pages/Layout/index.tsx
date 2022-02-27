@@ -57,7 +57,7 @@ const Layout: FC<Props> = ({ params }) => {
         />
       ]);
     }
-  }, [category, sort, visibleCount]);
+  }, [category, sort, visibleCount, RenderFn]);
 
   useEffect(() => {
     setArticleList(
@@ -73,7 +73,7 @@ const Layout: FC<Props> = ({ params }) => {
         />
       ]
     );
-  }, [category, sort]);
+  }, [category, sort, RenderFn]);
 
   useEffect(() => {
     window.addEventListener('scroll', scrollEvent);

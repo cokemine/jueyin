@@ -19,6 +19,13 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
   const article = data?.data.article;
   const authorInfo = article?.author_user_info;
 
+  /* Save Post to localStorage */
+  if (article) {
+    const articleList = JSON.parse(localStorage.getItem('historyArticles') || '[]') as IArticle['article'][];
+    articleList.push(article);
+    localStorage.setItem('historyArticles', JSON.stringify(articleList));
+  }
+
   /* article?.article_info.comment_count != totalComment */
   const [totalComment, setTotalComment] = useState<number>();
   const commentHeight = useRef<Array<number>>([]);
