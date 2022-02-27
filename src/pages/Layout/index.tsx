@@ -1,5 +1,5 @@
 import React, {
-  FC, useCallback, useEffect, useRef, useState
+  FC, useCallback, useEffect, useMemo, useRef, useState
 } from 'react';
 import useSWR from 'swr';
 import { RouteComponentProps, Link } from 'wouter';
@@ -9,6 +9,7 @@ import SubMenu from '../../components/SubMenu';
 import webBanner from '../../assets/webbanner.webp';
 import ArticleRendered from '../../components/Article/ArticleRendered';
 import './style.scss';
+import ArticleHistoryRendered from '../../components/Article/ArticleHistoryRendered';
 
 type Props = RouteComponentProps<{ id: string, sub_id: string }>;
 
@@ -33,6 +34,8 @@ const Layout: FC<Props> = ({ params }) => {
 
   const [articleList, setArticleList] = useState<JSX.Element[]>([]);
 
+  const RenderFn = useMemo(() => (sort === 'history' ? ArticleHistoryRendered : ArticleRendered), [sort]);
+
   const scrollEvent = useCallback(() => {
     const { scrollTop } = document.documentElement;
     const offsetTop = listRef.current?.offsetTop || 0;
@@ -43,7 +46,7 @@ const Layout: FC<Props> = ({ params }) => {
     if (hasMore.current && end >= offset.current) {
       setArticleList(articleList => [
         ...articleList,
-        <ArticleRendered
+        <RenderFn
           category={category}
           sort={sort}
           offset={offset.current}
@@ -59,7 +62,7 @@ const Layout: FC<Props> = ({ params }) => {
   useEffect(() => {
     setArticleList(
       [
-        <ArticleRendered
+        <RenderFn
           category={category}
           sort={sort}
           offset={0}
