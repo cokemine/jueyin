@@ -6,9 +6,11 @@ import Article from './index';
 
 type Props = {
   category: number,
+  /* 'hot' / 'new' */
   sort: string,
   offset: number,
   limit: number,
+  /* Set if there are more articles not show */
   setHasMore: (result: boolean) => void,
 };
 

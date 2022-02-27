@@ -8,13 +8,17 @@ import { IReply } from '../../types';
 import { getDiffDate } from '../../utils/formatDate';
 
 type Props = {
+  /* if is a sub comment */
   isSub?: boolean,
+  /* sub comment info */
   replyInfo?: IReply[] | null;
   replyToName?: string | null;
   replyToContent?: string | null;
+  /* author info */
   avatarUrl: string;
   authorDesc?: string;
   name: string;
+  /* the content of the comment */
   content: string;
   createAt: number;
   likeCount: number;
@@ -28,8 +32,9 @@ const Comment: FC<Props> = props => {
     'comment-item__avatar--sub': props.isSub
   });
 
+  /* hash table: id -> reply object */
   const replyMap = new Map<string, IReply>();
-  /* reply.reply_id <> reply.reply_info.reply_id */
+  /* reply.reply_id !== reply.reply_info.reply_id */
   if (Array.isArray(props.replyInfo)) {
     props.replyInfo.forEach(reply => {
       replyMap.set(reply.reply_info.reply_id, reply);
