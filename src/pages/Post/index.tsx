@@ -14,37 +14,36 @@ import { formatDate } from '../../utils/formatDate';
 import { moveScrollToTop } from '../../utils/dom';
 
 const Post: FC<RouteComponentProps<{ id: string }>> = props => {
-  useEffect(() => {
-    moveScrollToTop();
-  }, []);
-
   const { id } = props.params;
   const { data } = useSWR<Response<IArticle>>(['getArticleById', id]);
   const article = data?.data.article;
   const authorInfo = article?.author_user_info;
 
   /* article?.article_info.comment_count != totalComment */
-  const totalComment = useRef(0);
+  const totalComment = useRef();
   const currentComment = useRef(10);
+  const commentHeight = useRef<Array<number>>([]);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const observer = useRef<ResizeObserver>();
 
   const [showShowMoreButton, setShowShowMoreButton] = useState(true);
 
   const [commentList, setCommentList] = useState<JSX.Element[]>(
-    [
-      <CommentRendered
-        articleId={id}
-        key={0}
-        offset={0}
-        limit={10}
-        setTotalComment={result => totalComment.current = result}
-      />
-    ]
+    []
   );
-
-  const fetchComments = useCallback(() => {
+  const windowHeight = window.innerHeight;
+  const scrollEvent = useCallback(() => {
+    const { scrollTop } = document.documentElement;
+    const offsetTop = listRef.current?.offsetTop || 0;
+    const itemHeight = commentHeight.current.reduce((a, b) => a + b, 0) / commentHeight.current.length;
+    const start = Math.floor((scrollTop - offsetTop) / itemHeight);
+    const visibleCount = Math.ceil(windowHeight / itemHeight);
+    const end = start + visibleCount;
     const offset = currentComment.current;
     const limit = Math.min(totalComment.current - offset, 10);
-    if (limit <= 0) return setShowShowMoreButton(false);
+    console.log(start, end);
+    if (limit <= 0 || end < offset) return;
     setCommentList(commentList => [
       ...commentList,
       <CommentRendered
@@ -53,9 +52,39 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
         articleId={id}
         key={`${id}-${offset}-${limit}`}
         setTotalComment={result => totalComment.current = result}
+        observeCallback={el => observer.current?.observe((el))}
       />]);
     currentComment.current += limit;
+  }, [id, windowHeight]);
+
+  useEffect(() => {
+    moveScrollToTop();
+
+    observer.current = new ResizeObserver(entries => {
+      entries.forEach(entry => {
+        const index = Number(entry.target.getAttribute('data-comment-index'));
+        commentHeight.current[index] = entry.contentRect.bottom + entry.contentRect.top;
+      });
+    });
+
+    setCommentList([
+      <CommentRendered
+        articleId={id}
+        key={0}
+        offset={0}
+        limit={10}
+        setTotalComment={result => totalComment.current = result}
+        observeCallback={el => observer.current?.observe((el))}
+      />
+    ]);
+
+    return () => observer.current?.disconnect();
   }, [id]);
+
+  useEffect(() => {
+    !showShowMoreButton && window.addEventListener('scroll', scrollEvent);
+    return () => window.removeEventListener('scroll', scrollEvent);
+  }, [scrollEvent, showShowMoreButton]);
 
   return (
     <div className="article-container">
@@ -98,13 +127,15 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
             {' '}
             <AiFillFire className="hot-icon" />
           </h1>
-          {
-            commentList
-          }
+          <div ref={listRef}>
+            {
+              commentList
+            }
+          </div>
           {showShowMoreButton && (
             <div
               className="show-more-comments"
-              onClick={fetchComments}
+              onClick={() => setShowShowMoreButton(false)}
             >
               查看全部
               {' '}

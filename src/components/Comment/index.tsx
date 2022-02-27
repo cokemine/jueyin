@@ -22,6 +22,8 @@ type Props = {
   content: string;
   createAt: number;
   likeCount: number;
+  'data-comment-index'?: number;
+  refCallback?: React.RefCallback<any>;
 };
 
 const Comment: FC<Props> = props => {
@@ -42,7 +44,7 @@ const Comment: FC<Props> = props => {
   }
 
   return (
-    <div className={wrapperClass}>
+    <div className={wrapperClass} data-comment-index={props['data-comment-index']} ref={props.refCallback}>
       <Image className={avatarClass} defaultSrc={defaultAvatar} src={props.avatarUrl} alt={props.name} />
       <div className="comment-item__main">
         <div className="comment-item__top">
