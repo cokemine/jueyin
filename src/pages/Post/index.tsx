@@ -27,7 +27,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
       const articleList = JSON.parse(localStorage.getItem('historyArticles') || '[]') as IArticle['article'][];
       const hasArticle = articleList.some(item => item.article_id === article.article_id);
       if (!hasArticle) {
-        articleList.push(article);
+        articleList.unshift(article);
         localStorage.setItem('historyArticles', JSON.stringify(articleList));
       }
     }
