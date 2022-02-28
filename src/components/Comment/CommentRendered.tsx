@@ -7,7 +7,6 @@ type Props = {
   articleId: string;
   offset: number,
   limit: number,
-  setTotalComment: (result: number) => void,
   observeCallback?: (el: Element) => void | undefined,
 };
 
@@ -15,12 +14,10 @@ const CommentRendered: FC<Props> = ({
   articleId,
   offset,
   limit,
-  setTotalComment,
   observeCallback
 }) => {
   const { data: commentsData } = useSWR<Response<IComments>>(['getCommentsByArticleId', articleId, offset, limit]);
   const comments = commentsData?.data.comments;
-  useEffect(() => setTotalComment(Number(commentsData?.total)), [commentsData?.total, setTotalComment]);
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>

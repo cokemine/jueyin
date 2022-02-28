@@ -5,7 +5,7 @@ import { RouteComponentProps } from 'wouter';
 import './style.scss';
 import useSWR from 'swr';
 import { AiFillEye, AiFillLike, AiFillFire } from 'react-icons/ai';
-import { IArticle, Response } from '../../types';
+import { IArticle, IComments, Response } from '../../types';
 import Image from '../../components/Image';
 import CommentRendered from '../../components/Comment/CommentRendered';
 import defaultAvatar from '../../assets/avatar.jpg';
@@ -16,6 +16,8 @@ import { moveScrollToTop } from '../../utils/dom';
 const Post: FC<RouteComponentProps<{ id: string }>> = props => {
   const { id } = props.params;
   const { data } = useSWR<Response<IArticle>>(['getArticleById', id]);
+  /* article?.article_info.comment_count != totalComment */
+  const { data: { total } = {} } = useSWR<Response<IComments>>(['getCommentsByArticleId', id, 0, 0]);
   const article = data?.data.article;
   const authorInfo = article?.author_user_info;
 
@@ -31,8 +33,6 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
     }
   }, [article]);
 
-  /* article?.article_info.comment_count != totalComment */
-  const [totalComment, setTotalComment] = useState<number>();
   const commentHeight = useRef<Array<number>>([]);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +42,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
 
   const [commentList, setCommentList] = useState<JSX.Element[]>([]);
 
-  console.log('rendered', totalComment, commentList, data);
+  console.log('rendered', total, commentList, data);
 
   const scrollEvent = useCallback(() => {
     const { scrollTop } = document.documentElement;
@@ -54,7 +54,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
     const start = Math.floor((scrollTop - offsetTop) / itemHeight);
     const end = start + visibleCount;
 
-    const limit = Math.min(totalComment! - offset, 10);
+    const limit = Math.min(total! - offset, 10);
 
     console.log(start, end);
     if (limit <= 0 || end < offset) return;
@@ -65,10 +65,10 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
         offset={offset}
         articleId={id}
         key={`${id}-${offset}-${limit}`}
-        setTotalComment={result => setTotalComment(result)}
         observeCallback={el => observer.current?.observe((el))}
-      />]);
-  }, [id, totalComment]);
+      />
+    ]);
+  }, [id, total]);
 
   useEffect(() => {
     moveScrollToTop();
@@ -86,7 +86,6 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
         key={`${id}-0-10`}
         offset={0}
         limit={10}
-        setTotalComment={result => setTotalComment(result)}
         observeCallback={el => observer.current?.observe((el))}
       />
     ]);
@@ -107,12 +106,12 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
           <div className="article-author">
             <Image
               className="author-avatar"
-              src={article?.author_user_info.avatar_large}
+              src={authorInfo?.avatar_large}
               defaultSrc={defaultAvatar}
               alt={authorInfo?.user_name}
             />
             <div className="author-info">
-              <div className="author-name">{article?.author_user_info.user_name}</div>
+              <div className="author-name">{authorInfo?.user_name}</div>
               <div
                 className="article-meta"
               >
@@ -136,7 +135,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
           <h1 className="comments-title">
             全部评论
             {' '}
-            {totalComment}
+            {total}
             {' '}
             <AiFillFire className="hot-icon" />
           </h1>
@@ -155,7 +154,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
             >
               查看全部
               {' '}
-              {totalComment}
+              {total}
               {' '}
               条回复
             </div>
@@ -167,13 +166,13 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
           <div className="author-user">
             <Image
               className="author-avatar"
-              src={article?.author_user_info.avatar_large}
+              src={authorInfo?.avatar_large}
               defaultSrc={defaultAvatar}
               alt={authorInfo?.user_name}
             />
             <div className="author-info">
-              <div className="author-name">{article?.author_user_info.user_name}</div>
-              <div className="author-desc">{article?.author_user_info.job_title}</div>
+              <div className="author-name">{authorInfo?.user_name}</div>
+              <div className="author-desc">{authorInfo?.job_title}</div>
             </div>
           </div>
           <div className="author-stat">
