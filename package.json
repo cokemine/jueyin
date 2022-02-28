@@ -1,6 +1,8 @@
 {
   "name": "jueyin",
   "version": "0.0.0",
+  "private": true,
+  "license": "LICENSE.txt",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
