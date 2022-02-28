@@ -20,7 +20,7 @@ const Menu: FC<Props> = ({ categories, className, onLinkClick }) => {
           {
             categories?.map(category => {
               const className = classNames('menu__item', {
-                'menu__item--active': (!match && category.category_id === 0) || (match && params?.id === category.category_id.toString())
+                'menu__item--active': match ? params?.id === category.category_id.toString() : category.category_id === 0
               });
               return (
                 <Link
