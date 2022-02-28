@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { IArticle } from '../../types';
-import { RenderArticle, RenderedProps } from './rendered';
+import { RenderArticle, RenderedProps } from './RenderArticle';
 
 const ArticleHistoryRendered: FC<RenderedProps> = ({
   category,

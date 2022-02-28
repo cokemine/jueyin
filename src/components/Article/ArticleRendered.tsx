@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import useSWR from 'swr';
 import { IArticles, Response } from '../../types';
-import { RenderArticle, RenderedProps } from './rendered';
+import { RenderArticle, RenderedProps } from './RenderArticle';
 
 const ArticleRendered: FC<RenderedProps> = ({
   category,

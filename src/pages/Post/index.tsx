@@ -41,7 +41,6 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
   const [showShowMoreButton, setShowShowMoreButton] = useState(true);
 
   const [commentList, setCommentList] = useState<JSX.Element[]>([]);
-  const windowHeight = window.innerHeight;
 
   console.log('rendered', totalComment, commentList, data);
 
@@ -50,7 +49,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
     const offsetTop = listRef.current?.offsetTop || 0;
     const offset = commentHeight.current.length;
     const itemHeight = commentHeight.current.reduce((a, b) => a + b) / offset;
-    const visibleCount = Math.ceil(windowHeight / itemHeight);
+    const visibleCount = Math.ceil(window.innerHeight / itemHeight);
 
     const start = Math.floor((scrollTop - offsetTop) / itemHeight);
     const end = start + visibleCount;
@@ -69,7 +68,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
         setTotalComment={result => setTotalComment(result)}
         observeCallback={el => observer.current?.observe((el))}
       />]);
-  }, [id, windowHeight, totalComment]);
+  }, [id, totalComment]);
 
   useEffect(() => {
     moveScrollToTop();

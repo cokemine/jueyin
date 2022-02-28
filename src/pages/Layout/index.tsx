@@ -25,9 +25,6 @@ const Layout: FC<Props> = ({ params }) => {
   const queryParams = Object.fromEntries(urlSearchParams.entries());
   const sort = queryParams.sort || 'hot';
 
-  const itemHeight = 156, windowHeight = window.innerHeight;
-  const visibleCount = Math.ceil(windowHeight / itemHeight);
-
   const listRef = useRef<HTMLDivElement>(null);
   const offset = useRef(0);
   const hasMore = useRef(true);
@@ -39,8 +36,12 @@ const Layout: FC<Props> = ({ params }) => {
   const scrollEvent = useCallback(() => {
     const { scrollTop } = document.documentElement;
     const offsetTop = listRef.current?.offsetTop || 0;
+    const itemHeight = 156;
+    const visibleCount = Math.ceil(window.innerHeight / itemHeight);
+
     const start = Math.floor((scrollTop - offsetTop) / itemHeight);
     const end = start + visibleCount;
+
     console.log(start, end, offset.current);
     /* 每次增增加 5 条数据 */
     if (hasMore.current && end >= offset.current) {
@@ -57,7 +58,7 @@ const Layout: FC<Props> = ({ params }) => {
         />
       ]);
     }
-  }, [category, sort, visibleCount, RenderFn]);
+  }, [category, sort, RenderFn]);
 
   useEffect(() => {
     setArticleList(
