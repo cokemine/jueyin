@@ -79,17 +79,17 @@
   }
 
   .show-more-comments {
-    border-radius: 4px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    color: #252933;
-    font-size: 15px;
-    height: 52px;
-    cursor: pointer;
+    align-items: center;
     margin: 36px 0 0;
-    background-color: #f7f8fa;
+    border-radius: 4px;
+    height: 52px;
+    font-size: 15px;
     font-weight: 500;
+    color: #252933;
+    background-color: #f7f8fa;
+    cursor: pointer;
   }
 
   .article-sidebar {

@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import { Link, useLocation } from 'wouter';
 import { AiOutlineEye, AiOutlineLike } from 'react-icons/ai';
 import { FaRegComment } from 'react-icons/fa';
-import './style.scss';
 import Image from '../Image';
 import defaultCover from '../../assets/cover.jpg';
+import './style.scss';
 
 type CategoryItem = {
   id: number;

@@ -2,16 +2,16 @@ import React, {
   FC, useState, useRef, useCallback, useEffect
 } from 'react';
 import { RouteComponentProps } from 'wouter';
-import './style.scss';
 import useSWR from 'swr';
 import { AiFillEye, AiFillLike, AiFillFire } from 'react-icons/ai';
 import { IArticle, IComments, Response } from '../../types';
+import { formatDate } from '../../utils/formatDate';
+import { moveScrollToTop } from '../../utils/dom';
 import Image from '../../components/Image';
 import CommentRendered from '../../components/Comment/CommentRendered';
 import defaultAvatar from '../../assets/avatar.jpg';
 import defaultCover from '../../assets/cover.jpg';
-import { formatDate } from '../../utils/formatDate';
-import { moveScrollToTop } from '../../utils/dom';
+import './style.scss';
 
 const Post: FC<RouteComponentProps<{ id: string }>> = props => {
   const { id } = props.params;

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import './style.scss';
 import logo from '../../assets/logo.svg';
 import logoMobile from '../../assets/logo-mobile.svg';
+import './style.scss';
 
 const Header: FC = () => (
   <div className="main-header">

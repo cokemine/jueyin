@@ -6,10 +6,10 @@ import { RouteComponentProps, Link } from 'wouter';
 import Menu from '../../components/Menu';
 import { ICategories, Response } from '../../types';
 import SubMenu from '../../components/SubMenu';
-import webBanner from '../../assets/webbanner.webp';
 import ArticleRendered from '../../components/Article/ArticleRendered';
-import './style.scss';
 import ArticleHistoryRendered from '../../components/Article/ArticleHistoryRendered';
+import webBanner from '../../assets/webbanner.webp';
+import './style.scss';
 
 type Props = RouteComponentProps<{ id: string, sub_id: string }>;
 

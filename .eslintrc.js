@@ -51,7 +51,10 @@ module.exports = {
     'template-curly-spacing': [2, 'never'],
     'max-classes-per-file': 'off',
     'import/prefer-default-export': 'off',
-    'import/order': [1, { groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'] }],
+    'import/order': [1, {
+      groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
+      warnOnUnassignedImports: true
+    }],
     'import/no-extraneous-dependencies': 'off',
     'react/prop-types': 'off',
     'react/destructuring-assignment': 'off',

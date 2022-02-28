@@ -1,8 +1,8 @@
 import React, { FC, MouseEventHandler } from 'react';
-import './style.scss';
 import { Link, useRoute } from 'wouter';
 import classNames from 'classnames';
 import { ICategory } from '../../types';
+import './style.scss';
 
 type Props = {
   categories?: ICategory[];

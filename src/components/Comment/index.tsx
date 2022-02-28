@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import './style.scss';
 import { AiOutlineComment, AiOutlineLike } from 'react-icons/ai';
 import classNames from 'classnames';
 import defaultAvatar from '../../assets/avatar.jpg';
 import Image from '../Image';
 import { IReply } from '../../types';
 import { getDiffDate } from '../../utils/formatDate';
+import './style.scss';
 
 type Props = {
   /* if is a sub comment */

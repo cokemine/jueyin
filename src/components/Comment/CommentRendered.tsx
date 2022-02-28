@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import useSWR from 'swr';
 import { IComments, Response } from '../../types';
 import Comment from './index';
