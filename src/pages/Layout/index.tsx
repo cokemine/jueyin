@@ -13,6 +13,11 @@ import ArticleHistoryRendered from '../../components/Article/ArticleHistoryRende
 
 type Props = RouteComponentProps<{ id: string, sub_id: string }>;
 
+type ApiMeta = {
+  offset: number,
+  hasMore: boolean
+};
+
 const Layout: FC<Props> = ({ params }) => {
   const { data: categoriesData } = useSWR<Response<ICategories>>('getCategories');
   const categoriesList = categoriesData?.data?.categories;
@@ -26,8 +31,12 @@ const Layout: FC<Props> = ({ params }) => {
   const sort = queryParams.sort || 'hot';
 
   const listRef = useRef<HTMLDivElement>(null);
-  const offset = useRef(0);
-  const hasMore = useRef(true);
+  const apiMeta = useRef<ApiMeta>(
+    {
+      offset: 0,
+      hasMore: true
+    }
+  );
 
   const [articleList, setArticleList] = useState<JSX.Element[]>([]);
 
@@ -42,19 +51,20 @@ const Layout: FC<Props> = ({ params }) => {
     const start = Math.floor((scrollTop - offsetTop) / itemHeight);
     const end = start + visibleCount;
 
-    console.log(start, end, offset.current);
+    const { offset, hasMore } = apiMeta.current;
+
+    console.log(start, end, offset);
     /* 每次增增加 5 条数据 */
-    if (hasMore.current && end >= offset.current) {
+    if (hasMore && end >= offset) {
       setArticleList(articleList => [
         ...articleList,
         <RenderFn
           category={category}
           sort={sort}
-          offset={offset.current}
+          offset={offset}
           limit={5}
-          key={`${category}-${sort}-${offset.current}-5`}
-          setHasMore={(result: boolean) => hasMore.current = result}
-          setNewOffset={(newOffset: number) => offset.current = newOffset}
+          key={`${category}-${sort}-${offset}-5`}
+          setApiMeta={(result: ApiMeta) => apiMeta.current = result}
         />
       ]);
     }
@@ -69,8 +79,7 @@ const Layout: FC<Props> = ({ params }) => {
           offset={0}
           limit={20}
           key={`${category}-${sort}-0-20`}
-          setHasMore={(result: boolean) => hasMore.current = result}
-          setNewOffset={(newOffset: number) => offset.current = newOffset}
+          setApiMeta={(result: ApiMeta) => apiMeta.current = result}
         />
       ]
     );

@@ -8,13 +8,17 @@ const ArticleRendered: FC<RenderedProps> = ({
   sort,
   offset,
   limit,
-  setNewOffset,
-  setHasMore
+  setApiMeta
 }) => {
   const { data: articlesData } = useSWR<Response<IArticles>>(['getArticles', category, sort, offset, limit]);
-  setHasMore(articlesData?.has_more ?? true);
-  setNewOffset(offset + limit);
   const articleList = articlesData?.data?.articles;
+
+  setApiMeta(
+    {
+      hasMore: articlesData?.has_more ?? true,
+      offset: offset + limit
+    }
+  );
 
   return <RenderArticle articleList={articleList!} />;
 };

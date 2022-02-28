@@ -10,8 +10,7 @@ export interface RenderedProps {
   offset: number,
   limit: number,
   /* Set if there are more articles not show */
-  setHasMore: (result: boolean) => void,
-  setNewOffset: (offset: number) => void,
+  setApiMeta: (result: { offset: number, hasMore: boolean }) => void
 }
 
 export const RenderArticle: FC<{ articleList: IArticle['article'][] }> = ({ articleList }) => (

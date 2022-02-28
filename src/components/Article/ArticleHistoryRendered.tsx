@@ -6,8 +6,7 @@ const ArticleHistoryRendered: FC<RenderedProps> = ({
   category,
   offset,
   limit,
-  setHasMore,
-  setNewOffset
+  setApiMeta
 }) => {
   const historyArticles: IArticle['article'][] = JSON.parse(localStorage.getItem('historyArticles') || '[]');
   const articlesWithCategory = category
@@ -16,8 +15,12 @@ const ArticleHistoryRendered: FC<RenderedProps> = ({
     )
     : historyArticles;
 
-  setHasMore(articlesWithCategory.length > offset + limit);
-  setNewOffset(offset + limit);
+  setApiMeta(
+    {
+      hasMore: articlesWithCategory.length > offset + limit,
+      offset: offset + limit
+    }
+  );
 
   return <RenderArticle articleList={articlesWithCategory.slice(offset).slice(0, limit)} />;
 };
