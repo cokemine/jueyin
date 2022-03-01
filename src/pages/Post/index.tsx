@@ -3,7 +3,9 @@ import React, {
 } from 'react';
 import { RouteComponentProps } from 'wouter';
 import useSWR from 'swr';
-import { AiFillEye, AiFillLike, AiFillFire } from 'react-icons/ai';
+import {
+  AiFillEye, AiFillLike, AiFillFire, AiOutlineUp
+} from 'react-icons/ai';
 import { IArticle, IComments, Response } from '../../types';
 import { formatDate } from '../../utils/formatDate';
 import { moveScrollToTop } from '../../utils/dom';
@@ -195,6 +197,7 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
             </div>
           </div>
         </div>
+        <AiOutlineUp className="to-top-btn" onClick={() => window.scroll(0, 0)} />
       </div>
     );
 };
