@@ -9,6 +9,7 @@ import SubMenu from '../../components/SubMenu';
 import ArticleRendered from '../../components/Article/ArticleRendered';
 import ArticleHistoryRendered from '../../components/Article/ArticleHistoryRendered';
 import webBanner from '../../assets/webbanner.webp';
+import { throttle } from '../../utils/dom';
 import './style.scss';
 
 type Props = RouteComponentProps<{ id: string, sub_id: string }>;
@@ -86,8 +87,9 @@ const Layout: FC<Props> = ({ params }) => {
   }, [category, sort, RenderFn]);
 
   useEffect(() => {
-    window.addEventListener('scroll', scrollEvent);
-    return () => window.removeEventListener('scroll', scrollEvent);
+    const throttleScrollEvent = throttle(scrollEvent, 150);
+    window.addEventListener('scroll', throttleScrollEvent);
+    return () => window.removeEventListener('scroll', throttleScrollEvent);
   }, [scrollEvent]);
 
   return (

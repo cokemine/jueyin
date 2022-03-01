@@ -8,7 +8,7 @@ import {
 } from 'react-icons/ai';
 import { IArticle, IComments, Response } from '../../types';
 import { formatDate } from '../../utils/formatDate';
-import { moveScrollToTop } from '../../utils/dom';
+import { moveScrollToTop, throttle } from '../../utils/dom';
 import Image from '../../components/Image';
 import CommentRendered from '../../components/Comment/CommentRendered';
 import defaultAvatar from '../../assets/avatar.jpg';
@@ -98,8 +98,9 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
   }, [id]);
 
   useEffect(() => {
-    !showShowMoreButton && window.addEventListener('scroll', scrollEvent);
-    return () => window.removeEventListener('scroll', scrollEvent);
+    const throttleScrollEvent = throttle(scrollEvent, 150);
+    !showShowMoreButton && window.addEventListener('scroll', throttleScrollEvent);
+    return () => window.removeEventListener('scroll', throttleScrollEvent);
   }, [scrollEvent, showShowMoreButton]);
 
   return error
