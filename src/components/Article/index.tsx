@@ -29,7 +29,10 @@ type Props = {
 const Article: FC<Props> = props => {
   const [, setLocation] = useLocation();
   return (
-    <div className="list-article" onClick={() => setLocation(`/post/${props.id}`)}>
+    <div
+      className="list-article"
+      onClick={e => (e.target as any).nodeName !== 'A' && setLocation(`/post/${props.id}`)}
+    >
       <div className="list-article__meta">
         <span className="meta-author nav-item">{props.author}</span>
         <span className="meta-time nav-item">{props.time}</span>
