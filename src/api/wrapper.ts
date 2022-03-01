@@ -1,6 +1,10 @@
 import {
-  getCategories, getArticles, getArticleById, getCommentsByArticleId
+  getCategories,
+  getArticles,
+  getArticleById,
+  getCommentsByArticleId
 } from './index';
+import type { Response } from '../types';
 
 /* 提供的数据有 ID 重复 */
 async function getArticlesWrapper(...args: any[]) {
@@ -26,6 +30,6 @@ const Api = {
   getArticles: getArticlesWrapper,
   getArticleById,
   getCommentsByArticleId
-} as Record<string, any>;
+} as Record<string, (...args: any[]) => Promise<Response>>;
 
 export default Api;

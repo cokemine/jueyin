@@ -11,11 +11,13 @@ import Image from '../../components/Image';
 import CommentRendered from '../../components/Comment/CommentRendered';
 import defaultAvatar from '../../assets/avatar.jpg';
 import defaultCover from '../../assets/cover.jpg';
+import NotFoundImage from '../../assets/404.svg';
 import './style.scss';
 
 const Post: FC<RouteComponentProps<{ id: string }>> = props => {
   const { id } = props.params;
-  const { data } = useSWR<Response<IArticle>>(['getArticleById', id]);
+  /* Currently, we only have 404 error code */
+  const { data, error } = useSWR<Response<IArticle>>(['getArticleById', id]);
   /* article?.article_info.comment_count != totalComment */
   const { data: { total } = {} } = useSWR<Response<IComments>>(['getCommentsByArticleId', id, 0, 0]);
   const article = data?.data.article;
@@ -98,96 +100,102 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
     return () => window.removeEventListener('scroll', scrollEvent);
   }, [scrollEvent, showShowMoreButton]);
 
-  return (
-    <div className="article-container">
-      <div className="article-wrapper">
-        <div className="article-main">
-          <h1 className="article-title">{article?.article_info.title}</h1>
-          <div className="article-author">
-            <Image
-              className="author-avatar"
-              src={authorInfo?.avatar_large}
-              defaultSrc={defaultAvatar}
-              alt={authorInfo?.user_name}
-            />
-            <div className="author-info">
-              <div className="author-name">{authorInfo?.user_name}</div>
-              <div
-                className="article-meta"
-              >
-                {`${formatDate(article?.article_info.mtime!)} · 阅读 ${article?.article_info.view_count}`}
+  return error
+    ? (
+      <div style={{ textAlign: 'center' }}>
+        <img src={NotFoundImage} alt="404 Not Found" />
+      </div>
+    )
+    : (
+      <div className="article-container">
+        <div className="article-wrapper">
+          <div className="article-main">
+            <h1 className="article-title">{article?.article_info.title}</h1>
+            <div className="article-author">
+              <Image
+                className="author-avatar"
+                src={authorInfo?.avatar_large}
+                defaultSrc={defaultAvatar}
+                alt={authorInfo?.user_name}
+              />
+              <div className="author-info">
+                <div className="author-name">{authorInfo?.user_name}</div>
+                <div
+                  className="article-meta"
+                >
+                  {`${formatDate(article?.article_info.mtime!)} · 阅读 ${article?.article_info.view_count}`}
+                </div>
               </div>
             </div>
+            {article?.article_info.cover_image
+              && (
+                <Image
+                  className="article-cover"
+                  src={article?.article_info.cover_image}
+                  defaultSrc={defaultCover}
+                  alt={article.article_info.title}
+                />
+              )}
+            <div className="article-content" dangerouslySetInnerHTML={{ __html: article?.article_content! }} />
           </div>
-          {article?.article_info.cover_image
-            && (
-              <Image
-                className="article-cover"
-                src={article?.article_info.cover_image}
-                defaultSrc={defaultCover}
-                alt={article.article_info.title}
-              />
-            )}
-          <div className="article-content" dangerouslySetInnerHTML={{ __html: article?.article_content! }} />
-        </div>
-        {/* Comments */}
-        <div className="article-comments">
-          <h1 className="comments-title">
-            全部评论
-            {' '}
-            {total}
-            {' '}
-            <AiFillFire className="hot-icon" />
-          </h1>
-          <div ref={listRef}>
-            {
-              commentList
-            }
-          </div>
-          {showShowMoreButton && (
-            <div
-              className="show-more-comments"
-              onClick={() => {
-                setShowShowMoreButton(false);
-                scrollEvent();
-              }}
-            >
-              查看全部
+          {/* Comments */}
+          <div className="article-comments">
+            <h1 className="comments-title">
+              全部评论
               {' '}
               {total}
               {' '}
-              条回复
+              <AiFillFire className="hot-icon" />
+            </h1>
+            <div ref={listRef}>
+              {
+                commentList
+              }
             </div>
-          )}
-        </div>
-      </div>
-      <div className="article-sidebar">
-        <div className="author-box">
-          <div className="author-user">
-            <Image
-              className="author-avatar"
-              src={authorInfo?.avatar_large}
-              defaultSrc={defaultAvatar}
-              alt={authorInfo?.user_name}
-            />
-            <div className="author-info">
-              <div className="author-name">{authorInfo?.user_name}</div>
-              <div className="author-desc">{authorInfo?.job_title}</div>
-            </div>
-          </div>
-          <div className="author-stat">
-            <div className="stat-item">
-              <AiFillLike className="icon" />
-              {`获得点赞 ${authorInfo?.got_digg_count} 次`}
-            </div>
-            <div className="stat-item">
-              <AiFillEye className="icon" />
-              {`文章被阅读 ${authorInfo?.got_view_count} 次`}
-            </div>
+            {showShowMoreButton && (
+              <div
+                className="show-more-comments"
+                onClick={() => {
+                  setShowShowMoreButton(false);
+                  scrollEvent();
+                }}
+              >
+                查看全部
+                {' '}
+                {total}
+                {' '}
+                条回复
+              </div>
+            )}
           </div>
         </div>
+        <div className="article-sidebar">
+          <div className="author-box">
+            <div className="author-user">
+              <Image
+                className="author-avatar"
+                src={authorInfo?.avatar_large}
+                defaultSrc={defaultAvatar}
+                alt={authorInfo?.user_name}
+              />
+              <div className="author-info">
+                <div className="author-name">{authorInfo?.user_name}</div>
+                <div className="author-desc">{authorInfo?.job_title}</div>
+              </div>
+            </div>
+            <div className="author-stat">
+              <div className="stat-item">
+                <AiFillLike className="icon" />
+                {`获得点赞 ${authorInfo?.got_digg_count} 次`}
+              </div>
+              <div className="stat-item">
+                <AiFillEye className="icon" />
+                {`文章被阅读 ${authorInfo?.got_view_count} 次`}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 export default Post;
