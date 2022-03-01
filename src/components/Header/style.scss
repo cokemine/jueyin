@@ -1,4 +1,4 @@
-.main-header {
+.header {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #f1f1f1;
@@ -6,14 +6,13 @@
   color: #909090;
   background-color: #fff;
 
-  .logo,
-  .logo-mobile {
+  &__logo {
     margin: 0 2rem;
     outline: none;
-  }
 
-  .logo-mobile {
-    display: none;
+    &--mobile {
+      display: none;
+    }
   }
 
   .nav-list {
@@ -22,58 +21,48 @@
     align-items: center;
     width: 100%;
     height: 100%;
-  }
 
-  .list {
-    &-left {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    &__left .list-left__item {
+      display: inline-block;
+      padding: 0 1.5rem;
+      font-size: 1.3rem;
+      color: #515767;
+      cursor: pointer;
 
-      &__item {
-        padding: 0 1.5rem;
-        font-size: 1.3rem;
-        color: #515767;
-        cursor: pointer;
+      a {
+        position: relative;
+        display: inline-block;
+        line-height: 5rem;
 
-        a {
-          position: relative;
-          display: inline-block;
-          line-height: 5rem;
+        &:hover {
+          color: #252933;
 
-          &:hover {
-            color: #252933;
-
-            &::before {
-              position: absolute;
-              right: 0;
-              bottom: 0;
-              left: 0;
-              height: .25rem;
-              content: "";
-              background-color: #007fff;
-            }
+          &::before {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: .25rem;
+            content: "";
+            background-color: #007fff;
           }
         }
+      }
 
-        &:first-of-type {
-          color: #1e80ff;
-        }
+      &:first-of-type {
+        color: #1e80ff;
       }
     }
 
-    &-right {
+    &__right {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 2.5rem;
       font-size: 1.1rem;
 
-      * {
+      .list-right__search {
         margin: 0 1rem;
-      }
-
-      .search {
         border-radius: 4px;
         padding: .6rem 0 .6rem 1rem;
         height: 2.5rem;
@@ -83,22 +72,22 @@
       }
 
       .button {
+        margin: 0 1rem;
+        border-radius: 3px;
         height: 100%;
         font-size: 1.2rem;
         cursor: pointer;
 
-        &__add {
-          border-radius: 3px;
+        &--add {
           padding: 0 1rem;
           width: 9.5rem;
           color: #fff;
           background-color: #1e80ff;
         }
 
-        &__login {
+        &--login {
           margin-right: 2rem;
           border: 1px solid #007fff;
-          border-radius: 4px;
           padding: .3rem 1.5rem;
           color: #007fff;
           background-color: #fff;

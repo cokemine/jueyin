@@ -41,8 +41,10 @@ input {
 }
 
 @media (max-width: 1300px) {
+  /* Article View Page */
+
   /* hidden article Sidebar */
-  .article-sidebar {
+  .article__sidebar {
     display: none;
   }
 
@@ -50,23 +52,27 @@ input {
   .article-container {
     justify-content: center;
 
-    .article-main {
+    .article__main {
       margin: 0 8px;
 
-      .article-content {
+      /* Patch */
+      .article__content {
         max-width: calc(100vw - 5.4rem - 20px);
       }
     }
-  }
 
-  .article-comments {
-    margin: 20px 8px 0;
+    .article__comments {
+      margin: 20px 8px 0;
+    }
   }
 }
 
 @media (max-width: 1068px) {
-  .main-header {
-    .list-left__item {
+  /* Global Header Component */
+
+  /* hidden header nav item except Index */
+  .header {
+    .nav-list__left .list-left__item {
       display: none;
 
       &:first-of-type {
@@ -75,17 +81,16 @@ input {
     }
   }
 
-  .menu__inner {
-    width: 100%;
-  }
+  /* Article List Page */
 
-  .timeline-sidebar {
-    display: none;
-  }
-
-  .timeline {
+  .timeline-container {
     justify-content: center;
     margin: 0 5px;
+  }
+
+  /* hidden sidebar */
+  .timeline-sidebar {
+    display: none;
   }
 
   .comment-item__author-desc {
@@ -98,22 +103,24 @@ input {
 }
 
 @media (max-width: 700px) {
-  .main-header {
-    .list-right .button {
-      &__add {
+  /* Global Header Component */
+
+  .header {
+    .nav-list__right .button {
+      &--add {
         display: none;
       }
 
-      &__login {
+      &--login {
         color: #fff;
         background-color: #1d7dfa;
       }
     }
 
-    .logo {
+    &__logo {
       display: none;
 
-      &-mobile {
+      &--mobile {
         display: block;
       }
     }
@@ -121,8 +128,9 @@ input {
 }
 
 @media (max-width: 448px) {
-  .main-header {
-    .search {
+  /* Global Header Component */
+  .header {
+    .list-right__search {
       display: none;
     }
   }

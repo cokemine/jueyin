@@ -30,13 +30,13 @@ const Article: FC<Props> = props => {
   const [, setLocation] = useLocation();
   return (
     <div
-      className="list-article"
+      className="timeline-article"
       onClick={e => (e.target as any).nodeName !== 'A' && setLocation(`/post/${props.id}`)}
     >
-      <div className="list-article__meta">
-        <span className="meta-author nav-item">{props.author}</span>
-        <span className="meta-time nav-item">{props.time}</span>
-        <span className="meta-category nav-item">
+      <div className="timeline-article__meta">
+        <span className="meta-item meta__author">{props.author}</span>
+        <span className="meta-item meta__time">{props.time}</span>
+        <span className="meta-item meta__category">
           <Link className="category-item" href={`/category/${props.category[0].id}`}>
             {props.category[0].name}
           </Link>
@@ -46,28 +46,28 @@ const Article: FC<Props> = props => {
           </Link>
         </span>
       </div>
-      <div className="list-article__main">
+      <div className="timeline-article__main">
         <div>
-          <h1 className="article-title">
+          <h1 className="article-item__title">
             {props.title}
           </h1>
-          <div className="article-content">{props.content}</div>
+          <div className="article-item__brief">{props.content}</div>
         </div>
         {
           props.image
-          && <Image src={props.image} alt={props.title} defaultSrc={defaultCover} className="article-cover" />
+          && <Image src={props.image} alt={props.title} defaultSrc={defaultCover} className="article-item__cover" />
         }
       </div>
-      <div className="list-article__action">
-        <span className="action-views nav-item">
+      <div className="timeline-article__action">
+        <span className="action-item action__views">
           <AiOutlineEye />
           <span>{props.action.views}</span>
         </span>
-        <span className="action-likes nav-item">
+        <span className="action-item action__likes ">
           <AiOutlineLike />
           <span>{props.action.likes}</span>
         </span>
-        <span className="action-comments nav-item">
+        <span className="action-item action__comments">
           <FaRegComment />
           <span>{props.action.comments}</span>
         </span>

@@ -1,11 +1,11 @@
-.timeline {
+.timeline-container {
   display: flex;
   justify-content: space-between;
   align-items: self-start;
   margin: 1rem auto 0;
   max-width: 960px;
 
-  &-list {
+  .timeline-list {
     flex: auto;
     max-width: 700px;
     background-color: #fff;
@@ -36,16 +36,16 @@
     }
   }
 
-  &-sidebar {
+  .timeline-sidebar {
     max-width: 240px;
 
-    &-box {
-      margin-bottom: 1rem;
+    &__box {
+      margin-top: 0;
       padding: 1rem;
       background-color: #fff;
     }
 
-    .footer {
+    &__footer {
       color: #9aa3ab;
     }
   }

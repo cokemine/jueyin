@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Link, useRoute } from 'wouter';
 import classNames from 'classnames';
-import './SubMenuItem.scss';
 
 interface Props {
   name: string,

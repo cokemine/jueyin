@@ -112,19 +112,19 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
     : (
       <div className="article-container">
         <div className="article-wrapper">
-          <div className="article-main">
-            <h1 className="article-title">{article?.article_info.title}</h1>
-            <div className="article-author">
+          <div className="article__main">
+            <h1 className="article__title">{article?.article_info.title}</h1>
+            <div className="article__author">
               <Image
-                className="author-avatar"
+                className="author__avatar"
                 src={authorInfo?.avatar_large}
                 defaultSrc={defaultAvatar}
                 alt={authorInfo?.user_name}
               />
-              <div className="author-info">
-                <div className="author-name">{authorInfo?.user_name}</div>
+              <div className="author__info">
+                <div className="author__name">{authorInfo?.user_name}</div>
                 <div
-                  className="article-meta"
+                  className="article__meta"
                 >
                   {`${formatDate(article?.article_info.mtime!)} · 阅读 ${article?.article_info.view_count}`}
                 </div>
@@ -133,31 +133,31 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
             {article?.article_info.cover_image
               && (
                 <Image
-                  className="article-cover"
+                  className="article__cover"
                   src={article?.article_info.cover_image}
                   defaultSrc={defaultCover}
                   alt={article.article_info.title}
                 />
               )}
-            <div className="article-content" dangerouslySetInnerHTML={{ __html: article?.article_content! }} />
+            <div className="article__content" dangerouslySetInnerHTML={{ __html: article?.article_content! }} />
           </div>
           {/* Comments */}
-          <div className="article-comments">
-            <h1 className="comments-title">
+          <div className="article__comments">
+            <h1 className="comments__title">
               全部评论
               {' '}
               {total}
               {' '}
-              <AiFillFire className="hot-icon" />
+              <AiFillFire className="icon--hot" />
             </h1>
-            <div ref={listRef}>
+            <div className="comments__list" ref={listRef}>
               {
                 commentList
               }
             </div>
             {showShowMoreButton && (
               <div
-                className="show-more-comments"
+                className="btn-show"
                 onClick={() => {
                   setShowShowMoreButton(false);
                   scrollEvent();
@@ -172,33 +172,33 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
             )}
           </div>
         </div>
-        <div className="article-sidebar">
-          <div className="author-box">
-            <div className="author-user">
+        <div className="article__sidebar">
+          <div className="sidebar__user">
+            <div className="author-box">
               <Image
-                className="author-avatar"
+                className="author-box__avatar"
                 src={authorInfo?.avatar_large}
                 defaultSrc={defaultAvatar}
                 alt={authorInfo?.user_name}
               />
-              <div className="author-info">
-                <div className="author-name">{authorInfo?.user_name}</div>
-                <div className="author-desc">{authorInfo?.job_title}</div>
+              <div className="author-box__info">
+                <div className="author-box__name">{authorInfo?.user_name}</div>
+                <div className="author-box__desc">{authorInfo?.job_title}</div>
               </div>
             </div>
             <div className="author-stat">
-              <div className="stat-item">
-                <AiFillLike className="icon" />
+              <div className="author-stat-item">
+                <AiFillLike className="author-stat__icon" />
                 {`获得点赞 ${authorInfo?.got_digg_count} 次`}
               </div>
-              <div className="stat-item">
-                <AiFillEye className="icon" />
+              <div className="author-stat-item">
+                <AiFillEye className="author-stat__icon" />
                 {`文章被阅读 ${authorInfo?.got_view_count} 次`}
               </div>
             </div>
           </div>
         </div>
-        <AiOutlineUp className="to-top-btn" onClick={() => window.scroll(0, 0)} />
+        <AiOutlineUp className="btn-to-top" onClick={() => window.scroll(0, 0)} />
       </div>
     );
 };

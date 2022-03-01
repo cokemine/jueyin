@@ -5,14 +5,16 @@
   margin: 1.767rem auto 0;
   max-width: 1140px;
 
-  .article-main {
-    margin-right: 20px;
-    padding: 2.7rem;
+  .article-wrapper {
     max-width: 820px;
+  }
+
+  .article__main {
+    padding: 2.7rem;
     background-color: #fff;
   }
 
-  .article-title {
+  .article__title {
     margin: 0 0 1.667rem;
     font-size: 2.667rem;
     font-weight: 600;
@@ -20,12 +22,12 @@
     color: #252933;
   }
 
-  .article-author {
+  .article__author {
     display: flex;
     align-items: center;
     margin-bottom: 1.667rem;
 
-    .author-avatar {
+    .author__avatar {
       margin-right: 1rem;
       border-radius: 50%;
       width: 3.333rem;
@@ -34,81 +36,64 @@
       flex: 0 0 auto;
     }
 
-    .author-info {
+    .author__info {
       flex: 1;
+      line-height: 2rem;
 
-      .author-name {
+      .author__name {
         font-size: 1.333rem;
         font-weight: 500;
         color: #515767;
-        line-height: 2rem;
       }
 
-      .article-meta {
+      .article__meta {
         margin-top: 2px;
         font-size: 1.167rem;
         color: #8a919f;
-        line-height: 22px;
       }
     }
   }
 
-  .article-cover {
+  .article__cover {
     width: 100%;
     object-fit: cover;
   }
 
-  .article-comments {
+  .article__comments {
     margin-top: 20px;
-    padding: 2.7rem;
-    max-width: 820px;
+    padding: 2.8rem;
     background-color: #fff;
 
-    .comments-title {
+    .comments__title {
       display: flex;
       align-items: center;
       font-size: 18px;
       font-weight: 600;
       color: #252933;
-      line-height: 30px;
 
-      .hot-icon {
+      .icon--hot {
         color: #f53f3f;
       }
     }
   }
 
-  .show-more-comments {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 36px 0 0;
-    border-radius: 4px;
-    height: 52px;
-    font-size: 15px;
-    font-weight: 500;
-    color: #252933;
-    background-color: #f7f8fa;
-    cursor: pointer;
-  }
-
-  .article-sidebar {
-    max-width: 300px;
+  .article__sidebar {
+    width: 300px;
     background-color: #fff;
 
-    .author-box {
+    .sidebar__user {
       display: flex;
       padding: 1.667rem;
       flex-direction: column;
 
-      .author-user {
+      .author-box {
         display: flex;
         align-items: center;
         border-bottom: 1px solid #e4e6eb;
         border-bottom-color: rgb(228, 230, 235);
         padding-bottom: 1.416rem;
 
-        .author-avatar {
+        &__avatar {
           margin-right: 1.333rem;
           border-radius: 50%;
           width: 4rem;
@@ -116,14 +101,14 @@
           object-fit: cover;
         }
 
-        .author-name {
+        &__name {
           font-size: 1.333rem;
           font-weight: 500;
           line-height: 2rem;
           color: #252933;
         }
 
-        .author-desc {
+        &__desc {
           overflow: hidden;
           margin-top: 4px;
           font-size: 1.167rem;
@@ -136,7 +121,7 @@
       }
 
       .author-stat {
-        .stat-item {
+        &-item {
           display: flex;
           align-items: center;
           margin-top: .667rem;
@@ -145,7 +130,7 @@
           color: #252933;
         }
 
-        .icon {
+        &__icon {
           margin-right: 1rem;
           border-radius: 50%;
           padding: 4px;
@@ -158,7 +143,20 @@
     }
   }
 
-  .to-top-btn {
+  .btn-show {
+    margin: 36px 0 0;
+    border-radius: 4px;
+    height: 52px;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    color: #252933;
+    background-color: #f7f8fa;
+    line-height: 52px;
+    cursor: pointer;
+  }
+
+  .btn-to-top {
     position: fixed;
     right: 1.5rem;
     bottom: 1.5rem;

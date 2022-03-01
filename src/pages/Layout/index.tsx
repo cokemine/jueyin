@@ -102,7 +102,7 @@ const Layout: FC<Props> = ({ params }) => {
         subCategories
         && <SubMenu categories={subCategories} id={currentCategory} />
       }
-      <div className="timeline">
+      <div className="timeline-container">
         <div className="timeline-list">
           <div className="timeline-list__header">
             {
@@ -137,11 +137,11 @@ const Layout: FC<Props> = ({ params }) => {
           </div>
         </div>
         <div className="timeline-sidebar">
-          <h1 className="timeline-sidebar-box">
+          <h1 className="timeline-sidebar__box">
             I am sidebar
           </h1>
           <img src={webBanner} alt="" width={240} />
-          <p className="footer">©2022 稠土掘银</p>
+          <p className="timeline-sidebar__footer">©2022 稠土掘银</p>
         </div>
       </div>
     </>
