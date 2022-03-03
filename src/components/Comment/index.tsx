@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { forwardRef } from 'react';
 import { AiOutlineComment, AiOutlineLike } from 'react-icons/ai';
 import classNames from 'classnames';
 import defaultAvatar from '../../assets/avatar.jpg';
@@ -26,10 +26,9 @@ type Props = {
   likeCount: number;
   /* father comment index for observer used */
   'data-comment-index'?: number | undefined;
-  refCallback?: React.RefCallback<Element> | undefined;
 };
 
-const Comment: FC<Props> = props => {
+const Comment = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const wrapperClass = classNames('comment-item', {
     'comment-item--sub': props.isSub
   });
@@ -47,7 +46,7 @@ const Comment: FC<Props> = props => {
   }
 
   return (
-    <div className={wrapperClass} data-comment-index={props['data-comment-index']} ref={props.refCallback}>
+    <div className={wrapperClass} data-comment-index={props['data-comment-index']} ref={ref}>
       <Image className={avatarClass} defaultSrc={defaultAvatar} src={props.avatarUrl} alt={props.name} />
       <div className="comment-item__main">
         <div className="comment-item__top">
@@ -102,7 +101,7 @@ const Comment: FC<Props> = props => {
       </div>
     </div>
   );
-};
+});
 
 Comment.defaultProps = {
   isSub: false,
@@ -110,8 +109,7 @@ Comment.defaultProps = {
   replyToName: null,
   replyToContent: null,
   authorDesc: '',
-  'data-comment-index': undefined,
-  refCallback: undefined
+  'data-comment-index': undefined
 };
 
 export default Comment;
