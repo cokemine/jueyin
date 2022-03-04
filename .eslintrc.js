@@ -24,7 +24,6 @@ module.exports = {
     'comma-dangle': [2, 'never'],
     'no-await-in-loop': 1,
     'arrow-parens': [2, 'as-needed'],
-    'no-console': 'off',
     'no-plusplus': 'off',
     'no-param-reassign': [2, { props: false }],
     'no-restricted-syntax': 'off',

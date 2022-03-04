@@ -54,7 +54,6 @@ const Layout: FC<Props> = ({ params }) => {
 
     const { offset, hasMore } = apiMeta.current;
 
-    console.log(start, end, offset);
     /* 每次增增加 5 条数据 */
     if (hasMore && end >= offset) {
       setArticleList(articleList => [

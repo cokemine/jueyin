@@ -46,8 +46,6 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
 
   const [commentList, setCommentList] = useState<JSX.Element[]>([]);
 
-  console.log('rendered', total, commentList, data);
-
   const scrollEvent = useCallback(() => {
     const { scrollTop } = document.documentElement;
     const offsetTop = listRef.current?.offsetTop || 0;
@@ -60,7 +58,6 @@ const Post: FC<RouteComponentProps<{ id: string }>> = props => {
 
     const limit = Math.min(total! - offset, 10);
 
-    console.log(start, end);
     if (limit <= 0 || end < offset) return;
     setCommentList(commentList => [
       ...commentList,
