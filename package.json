@@ -5,7 +5,7 @@
   "license": "LICENSE.txt",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc --skipLibCheck && vite build",
     "preview": "vite preview",
     "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern dist --ignore-pattern src/api --fix",
     "lint:style": "stylelint src/**/*.scss --fix",
